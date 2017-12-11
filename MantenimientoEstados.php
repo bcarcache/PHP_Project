@@ -3,12 +3,12 @@
   require_once('./Classes/OBA.php');
   $oOBA = new OBA;
   $oOBA->validarSesion();
-  $oOBA->CargaMasivaUsuarios();
+  $oOBA->CargaMasivaEstados();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" href="./Imgs/Logo.png">
@@ -48,7 +48,7 @@
         <div class="col-lg-6">
           <table class="table table-hover table-responsive">
             <thead>
-              <tr> <th>ID</th> <th>Perfil</th> <th>Nombres</th> <th>Apellidos</th> <th>Teléfono</th> <th>Usuario</th> <th>Activo</th> </tr>
+              <tr> <th>ID</th> <th>Nombre</th> <th>Descripción</th> </tr>
             </thead>
             <tbody>
               <?php
@@ -69,11 +69,11 @@
         <div class="col-lg-4">
           <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-              <input type="file" id="fileTempUsuarios" name="fileTempUsuarios">
+              <input type="file" id="fileTempEstados" name="fileTempEstados">
             </div>
             <div class="form-group" align="center">
-              <a href="./Temp/Usuarios.xls" name="excelTemplate">Descargar Plantilla</a><br/>
-              <a href="./Temp/Usuarios.xls" name="excelTemplate"><img src="./Imgs/excel.png" height="35"></a>
+              <a href="./Temp/Estados.xls" name="excelTemplate">Descargar Plantilla</a><br/>
+              <a href="./Temp/Estados.xls" name="excelTemplate"><img src="./Imgs/excel.png" height="35"></a>
             </div>
             <center>
               <input type="submit" class="btn btn-success" value="Cargar"/>
@@ -100,27 +100,10 @@
     <script src="./bootstrap/js/vendor/popper.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      function populateForm (element) {
-        alert('This is an alert');
-        if (element.hasAttributes()) {
-         var attrs = element.attributes;
-         var output = "";
-         for(var i = attrs.length - 1; i >= 0; i--) {
-           alert(attrs[i].name + "->" + attrs[i].value);
-         }
-       }
-      }
-
       function limpiarForm() {
-        document.getElementById("idUsuario").value = '';
-        document.getElementById("selectPerfil").value = '';
-        document.getElementById("inputNombres").value = '';
-        document.getElementById("inputApellidos").value = '';
-        document.getElementById("inputTelefono").value = '';
-        document.getElementById("inputUsuario").value = '';
-        document.getElementById("inputPassword").value = '';
-        document.getElementById("inputPasswordConfirm").value = '';
-        document.getElementById("checkboxActivo").checked = false;
+        document.getElementById("idEstado").value = '';
+        document.getElementById("inputNombre").value = '';
+        document.getElementById("inputDescripcion").innerHTML = '';
       }
     </script>
 </body>

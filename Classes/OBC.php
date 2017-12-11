@@ -4,7 +4,7 @@ class OBC {
 	function PDODBConnection($sql) {
 		$upom = parse_ini_file('upom.ini');
 		try {
-			$conn = new PDO("mysql:host=" . $upom['host'] . ";dbname=" . $upom['dbname'], $upom['username'], $upom['password']);
+			$conn = new PDO("mysql:host=" . $upom['host'] . ";dbname=" . $upom['dbname'], $upom['username'], $upom['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$ret = $conn->query($sql);

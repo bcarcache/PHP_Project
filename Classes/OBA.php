@@ -53,11 +53,11 @@
 					} else {
 						//Menu Level 2
 						echo '<li class="nav-item dropdown">';
-						echo '<a class="nav-link dropdown-toggle" href="" id="dropdown' . $dpcount . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . utf8_encode($row["nombre"]) . '</a>';
+						echo '<a class="nav-link dropdown-toggle" href="" id="dropdown' . $dpcount . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $row["nombre"] . '</a>';
 						echo '<div class="dropdown-menu" aria-labelledby="dropdown' . $dpcount . '">';
 						$ret2 = $oOBC->PDODBConnection("CALL pMenuPerfilN2(" . $_SESSION["idPerfil"] . "," . $row["id"] . ")");
 						foreach ($ret2 as $row2) {
-							echo '<a class="dropdown-item" href="' . $row2["pagina"] . '">' . utf8_encode($row2["nombre"]) . '</a>';
+							echo '<a class="dropdown-item" href="' . $row2["pagina"] . '">' . $row2["nombre"] . '</a>';
 						}
 						echo '</div></li>';
 						$dpcount++;
@@ -91,8 +91,8 @@
 					}
 					
 					echo '<div class="col-lg-4">';
-					echo '<h2>' . utf8_encode($row["nombre"]) . '</h2>';
-					echo '<p>' . utf8_encode($row["descripcion"]) . '</p>';
+					echo '<h2>' . $row["nombre"] . '</h2>';
+					echo '<p>' . $row["descripcion"] . '</p>';
 					echo '<p><a class="btn btn-primary" href="' . $row["pagina"] . '" role="button">Entrar &raquo;</a></p>';
 					echo '</div>';
 					
@@ -107,26 +107,12 @@
 				if ($counter > 1) {
 					echo '</div>';
 				}
-				
-				
-				/*echo '<div class="col-lg-4">';
-				echo '<h2>Heading</h2>';
-				echo '<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>';
-				echo '<p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>';
-				echo '</div>';
-				echo '<div class="col-lg-4">';
-				echo '<h2>Heading</h2>';
-				echo '<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>';
-				echo '<p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>';
-				echo '</div>';
-				echo '</div>';
-				echo '<br/>';*/
 			}
 		}
 
 		function MostrarMatrizUsuarios() {
 			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizUsuarios()");
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('usuario')");
 
 			$fa = urlencode(base64_encode("editrecord"));
 
@@ -190,7 +176,7 @@
 				if (strcmp($action, 'editrecord') == 0) {
 					
 					$idUsuarioVal = 'value="' . $idUsuario . '"';
-					$infoUsuario = $oOBC->PDODBConnection("CALL pObtenerInformacionMttoUsuario(" . $idUsuario . ")");
+					$infoUsuario = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('usuario'," . $idUsuario . ")");
 					foreach ($infoUsuario as $row) {
 						$perfilUsuario = $row["perfil"];
 						$nombresUsuarioVal = 'value="' . $row["nombres"] . '"';
@@ -283,7 +269,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnection("CALL pMttoUsuarioMasivo(" . $idPerfil . "," . $nombres . "," . $apellidos . "," . $telefono . "," . $usuario . "," . $password . "," . $activo . ")");
+								$resultado = $oOBC->PDODBConnection("CALL pMttoUsuario(0," . $idPerfil . "," . $nombres . "," . $apellidos . "," . $telefono . "," . $usuario . "," . $password . "," . $activo . ")");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
@@ -299,12 +285,8 @@
 			//Inicializar Variables
 			$oOBC = new OBC;
 			$idEstadoVal = '';
-			$perfilUsuario = '';
-			$nombresUsuarioVal = '';
-			$apellidosUsuarioVal = '';
-			$telefonoUsuarioVal = '';
-			$usuarioVal = '';
-			$activoUsuarioVal = '';
+			$nombreEstadoVal = '';
+			$descripcionEstadoVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
@@ -313,91 +295,277 @@
 				} else {
 					$idEstado = 0;
 				}
-				$idPerfil = $_POST['selectPerfil'];
-				$nombres = $oOBC->DBQuote($_POST['inputNombres']);
-				$apellidos = $oOBC->DBQuote($_POST['inputApellidos']);
-				$telefono = $oOBC->DBQuote($_POST['inputTelefono']);
-				$usuario = $oOBC->DBQuote($_POST['inputUsuario']);
-				if (!$_POST['inputPassword']) {
-					$password = $oOBC->DBQuote("");
-				} else {
-					$password = $oOBC->DBQuote(base64_encode($_POST['inputPassword']));
-				}
-				if (strcmp($_POST['checkboxActivo'], "on")) {
-					$activo = 0;
-				} else {
-					$activo = 1;
-				}
+				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
+				error_log($descripcion);
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoUsuario(" . $idEstado . "," . $idPerfil . "," . $nombres . "," . $apellidos . "," . $telefono . "," . $usuario . "," . $password . "," . $activo . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoEstado(" . $idEstado . "," . $nombre . "," . $descripcion . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
-				$idUsuario = base64_decode(urldecode($_GET["fid"]));
+				$idEstado = base64_decode(urldecode($_GET["fid"]));
 				if (strcmp($action, 'editrecord') == 0) {
 					
 					$idEstadoVal = 'value="' . $idEstado . '"';
-					$infoUsuario = $oOBC->PDODBConnection("CALL pObtenerInformacionMttoUsuario(" . $idEstado . ")");
-					foreach ($infoUsuario as $row) {
-						$perfilUsuario = $row["perfil"];
-						$nombresUsuarioVal = 'value="' . $row["nombres"] . '"';
-						$apellidosUsuarioVal = 'value="' . $row["apellidos"] . '"';
-						$telefonoUsuarioVal = 'value="' . $row["telefono"] . '"';
-						$usuarioVal = 'value="' . $row["usuario"] . '"';
-						if ($row["activo"]) {
-							$activoUsuarioVal = 'checked';
-						}
+					$infoEstado = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('estado'," . $idEstado . ")");
+					foreach ($infoEstado as $row) {
+						$nombreEstadoVal = 'value="' . $row["nombre"] . '"';
+						$descripcionEstadoVal = $row["descripcion"];
 					}
 
 				}
 			}
 			echo '<input type="hidden" id="idEstado" name="idEstado" ' . $idEstadoVal . '/>';
 			echo '<div class="form-group">';
-			echo '<label for="selectPerfil">Perfil</label>';
-			echo '<select class="form-control" id="selectPerfil" name="selectPerfil" required>';
-			$this->MostrarPerfilesMttoUsuarios($perfilUsuario);
-			echo '</select>';
+			echo '<label for="inputNombre">Nombre</label>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreEstadoVal . ' required>';
 			echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="inputNombres">Nombres</label>';
-			echo '<input type="text" class="form-control" id="inputNombres" name="inputNombres" placeholder="Nombres" ' . $nombresUsuarioVal . ' required>';
+			echo '<label for="inputDescripcion">Descripción</label>';
+			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionEstadoVal . '</textarea>';
 			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputApellidos">Apellidos</label>';
-			echo '<input type="text" class="form-control" id="inputApellidos" name="inputApellidos" placeholder="Apellidos" ' . $apellidosUsuarioVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputTelefono">Teléfono</label>';
-			echo '<input type="text" class="form-control" id="inputTelefono" name="inputTelefono" placeholder="XXXX-XXXX" ' . $telefonoUsuarioVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputUsuario">Usuario</label>';
-			echo '<input type="text" class="form-control" id="inputUsuario" name="inputUsuario" placeholder="Usuario" ' . $usuarioVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputPassword">Password</label>';
-			echo '<input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password">';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputPasswordConfirm">Confirmar Password</label>';
-			echo '<input type="password" class="form-control" id="inputPasswordConfirm" name="inputPasswordConfirm" placeholder="Password">';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoUsuarioVal . '> Activo';
-			echo '</label>';
-			echo '</div>';
+		}
 
 		function MostrarMatrizEstados() {
 			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizUsuarios()");
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('estado')");
 
 			$fa = urlencode(base64_encode("editrecord"));
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoUsuarios.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["perfil"] . '</td> <td>' . $row["nombres"] . '</td> <td>' . $row["apellidos"] . '</td> <td>' . $row["telefono"] . '</td> <td>' . $row["usuario"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoEstados.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> </tr>';
 			}
 		}
+
+		function CargaMasivaEstados() {
+			if (isset($_FILES['fileTempEstados'])) {
+				if ($_FILES['fileTempEstados']['tmp_name']) {
+					if (!$_FILES['fileTempEstados']['error']) {
+
+					    $inputFile = $_FILES['fileTempEstados']['tmp_name'];
+
+					    $targetdir = 'Up/' . basename($_FILES["fileTempEstados"]["name"]);
+						move_uploaded_file($_FILES['fileTempEstados']['tmp_name'], $targetdir);
+					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
+
+					    if ($extension == "XLS") {
+							$excel = new PhpExcelReader;
+							$excel->read($targetdir);
+
+							$oOBC = new OBC;
+							//Saltar la primer fila del archivo
+							$x = 2;
+							while($x <= $excel->sheets[0]['numRows']) {
+								$y = 1;
+								while($y <= $excel->sheets[0]['numCols']) {
+								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
+								  if ($y == 1) {
+								  	$nombre = $oOBC->DBQuote($cell);
+								  } elseif ($y == 2) {
+								  	$descripcion = $oOBC->DBQuote($cell);
+								  }
+								  $y++;
+								}
+								$x++;
+
+								$resultado = $oOBC->PDODBConnection("CALL pMttoEstado(0,". $nombre . "," . $descripcion . ")");
+							}
+					    } else {
+					    	error_log("Template has to be XLS 97-2003");
+					    }
+					} else{
+					    error_log($_FILES['fileTempUsuarios']['error']);
+					}
+				}
+			}
+		}
+
+		function FrmMttoCriticidad() {
+			//Inicializar Variables
+			$oOBC = new OBC;
+			$idEstadoVal = '';
+			$nombreEstadoVal = '';
+			$descripcionEstadoVal = '';
+
+			//Validacion de Acciones
+			if ($_POST) {
+				if ($_POST['idEstado']) {
+					$idEstado = $_POST['idEstado'];
+				} else {
+					$idEstado = 0;
+				}
+				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
+				error_log($descripcion);
+
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCriticidad(" . $idEstado . "," . $nombre . "," . $descripcion . ")");
+			} elseif ($_GET) {
+				$action = base64_decode(urldecode($_GET["fa"]));
+				$idEstado = base64_decode(urldecode($_GET["fid"]));
+				if (strcmp($action, 'editrecord') == 0) {
+					
+					$idEstadoVal = 'value="' . $idEstado . '"';
+					$infoEstado = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('criticidad'," . $idEstado . ")");
+					foreach ($infoEstado as $row) {
+						$nombreEstadoVal = 'value="' . $row["nombre"] . '"';
+						$descripcionEstadoVal = $row["descripcion"];
+					}
+
+				}
+			}
+			echo '<input type="hidden" id="idEstado" name="idEstado" ' . $idEstadoVal . '/>';
+			echo '<div class="form-group">';
+			echo '<label for="inputNombre">Nombre</label>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreEstadoVal . ' required>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputDescripcion">Descripción</label>';
+			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionEstadoVal . '</textarea>';
+			echo '</div>';
+		}
+
+		function MostrarMatrizCriticidad() {
+			$oOBC = new OBC;
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('criticidad')");
+
+			$fa = urlencode(base64_encode("editrecord"));
+
+			foreach ($ret as $row) {
+				$fid = urlencode(base64_encode($row["id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoCriticidad.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> </tr>';
+			}
+		}
+
+		function CargaMasivaCriticidad() {
+			if (isset($_FILES['fileTempCriticidad'])) {
+				if ($_FILES['fileTempCriticidad']['tmp_name']) {
+					if (!$_FILES['fileTempCriticidad']['error']) {
+
+					    $inputFile = $_FILES['fileTempCriticidad']['tmp_name'];
+
+					    $targetdir = 'Up/' . basename($_FILES["fileTempCriticidad"]["name"]);
+						move_uploaded_file($_FILES['fileTempCriticidad']['tmp_name'], $targetdir);
+					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
+
+					    if ($extension == "XLS") {
+							$excel = new PhpExcelReader;
+							$excel->read($targetdir);
+
+							$oOBC = new OBC;
+							//Saltar la primer fila del archivo
+							$x = 2;
+							while($x <= $excel->sheets[0]['numRows']) {
+								$y = 1;
+								while($y <= $excel->sheets[0]['numCols']) {
+								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
+								  if ($y == 1) {
+								  	$nombre = $oOBC->DBQuote($cell);
+								  } elseif ($y == 2) {
+								  	$descripcion = $oOBC->DBQuote($cell);
+								  }
+								  $y++;
+								}
+								$x++;
+
+								$resultado = $oOBC->PDODBConnection("CALL pMttoCriticidad(0,". $nombre . "," . $descripcion . ")");
+							}
+					    } else {
+					    	error_log("Template has to be XLS 97-2003");
+					    }
+					} else{
+					    error_log($_FILES['fileTempUsuarios']['error']);
+					}
+				}
+			}
+		}
+
+		function FrmMttoTipificaciones() {
+			//Inicializar Variables
+			$oOBC = new OBC;
+			$idTipificacionVal = '';
+			$nombreTipificacionVal = '';
+
+			//Validacion de Acciones
+			if ($_POST) {
+				if ($_POST['idTipificacion']) {
+					$idTipificacion = $_POST['idTipificacion'];
+				} else {
+					$idTipificacion = 0;
+				}
+				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+
+				$resultado = $oOBC->PDODBConnection("CALL pMttoTipificacion(" . $idTipificacion . "," . $nombre . ")");
+			} elseif ($_GET) {
+				$action = base64_decode(urldecode($_GET["fa"]));
+				$idTipificacion = base64_decode(urldecode($_GET["fid"]));
+				if (strcmp($action, 'editrecord') == 0) {
+					
+					$idTipificacionVal = 'value="' . $idTipificacion . '"';
+					$infoTipificacion = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipificacion'," . $idTipificacion . ")");
+					foreach ($infoTipificacion as $row) {
+						$nombreTipificacionVal = 'value="' . $row["nombre"] . '"';
+					}
+
+				}
+			}
+			echo '<input type="hidden" id="idTipificacion" name="idTipificacion" ' . $idTipificacionVal . '/>';
+			echo '<div class="form-group">';
+			echo '<label for="inputNombre">Nombre</label>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreTipificacionVal . ' required>';
+			echo '</div>';
+		}
+
+		function MostrarMatrizTipificaciones() {
+			$oOBC = new OBC;
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('tipificacion')");
+
+			$fa = urlencode(base64_encode("editrecord"));
+
+			foreach ($ret as $row) {
+				$fid = urlencode(base64_encode($row["id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTipificaciones.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> </tr>';
+			}
+		}
+
+		function CargaMasivaTipificaciones() {
+			if (isset($_FILES['fileTempTipificaciones'])) {
+				if ($_FILES['fileTempTipificaciones']['tmp_name']) {
+					if (!$_FILES['fileTempTipificaciones']['error']) {
+
+					    $inputFile = $_FILES['fileTempTipificaciones']['tmp_name'];
+
+					    $targetdir = 'Up/' . basename($_FILES["fileTempTipificaciones"]["name"]);
+						move_uploaded_file($_FILES['fileTempTipificaciones']['tmp_name'], $targetdir);
+					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
+
+					    if ($extension == "XLS") {
+							$excel = new PhpExcelReader;
+							$excel->read($targetdir);
+
+							$oOBC = new OBC;
+							//Saltar la primer fila del archivo
+							$x = 2;
+							while($x <= $excel->sheets[0]['numRows']) {
+								$y = 1;
+								while($y <= $excel->sheets[0]['numCols']) {
+								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
+								  if ($y == 1) {
+								  	$nombre = $oOBC->DBQuote($cell);
+								  }
+								  $y++;
+								}
+								$x++;
+
+								$resultado = $oOBC->PDODBConnection("CALL pMttoTipificacion(0,". $nombre . ")");
+							}
+					    } else {
+					    	error_log("Template has to be XLS 97-2003");
+					    }
+					} else{
+					    error_log($_FILES['fileTempUsuarios']['error']);
+					}
+				}
+			}
 		}
 	}
 ?>
