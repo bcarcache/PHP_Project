@@ -1,10 +1,29 @@
 <?php
 class OBC {
 
+	//Encriptado para comunicarse con la Web
 	function PDODBConnection($sql) {
 		$upom = parse_ini_file('upom.ini');
 		try {
 			$conn = new PDO("mysql:host=" . $upom['host'] . ";dbname=" . $upom['dbname'], $upom['username'], $upom['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
+			
+			// set the PDO error mode to exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$ret = $conn->query($sql);
+			//echo "Connected successfully<br/>";
+			$conn = null;
+			return $ret;
+		} catch(PDOException $e) {
+			error_log("Connection failed: " . $e->getMessage());
+		}
+	}
+
+	//Sin encriptado para leer Excel
+	function PDODBConnectionNE($sql) {
+		$upom = parse_ini_file('upom.ini');
+		try {
+			$conn = new PDO("mysql:host=" . $upom['host'] . ";dbname=" . $upom['dbname'], $upom['username'], $upom['password']);
+			
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$ret = $conn->query($sql);

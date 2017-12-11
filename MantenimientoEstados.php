@@ -69,7 +69,7 @@
         <div class="col-lg-4">
           <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-              <input type="file" id="fileTempEstados" name="fileTempEstados">
+              <input type="file" id="fileTempEstados" name="fileTempEstados" accept=".xls" required>
             </div>
             <div class="form-group" align="center">
               <a href="./Temp/Estados.xls" name="excelTemplate">Descargar Plantilla</a><br/>

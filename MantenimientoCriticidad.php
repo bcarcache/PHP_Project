@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" href="./Imgs/Logo.png">
-	<title>Portal O&M - Mantenimiento de Criticidad</title>
+	<title>Portal O&M - Mantenimiento de Niveles de Criticidad</title>
 
 	<!-- Bootstrap core CSS -->
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +30,7 @@
       	?>
       </header>
 
-      <center><h1>Mantenimiento de Criticidad</h1></center>
+      <center><h1>Mantenimiento de Niveles de Criticidad</h1></center>
 
       <div class="row">
         <div class="col-lg-6">
@@ -62,14 +62,14 @@
       <br/>
       <br/>
 
-      <center><h1>Carga Masiva de Criticidad</h1></center>
+      <center><h1>Carga Masiva de Niveles de Criticidad</h1></center>
       <div class="row">
         <div class="col-lg-4">
         </div>
         <div class="col-lg-4">
           <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-              <input type="file" id="fileTempCriticidad" name="fileTempCriticidad">
+              <input type="file" id="fileTempCriticidad" name="fileTempCriticidad" required>
             </div>
             <div class="form-group" align="center">
               <a href="./Temp/Criticidad.xls" name="excelTemplate">Descargar Plantilla</a><br/>
@@ -102,15 +102,9 @@
     <script type="text/javascript">
 
       function limpiarForm() {
-        document.getElementById("idUsuario").value = '';
-        document.getElementById("selectPerfil").value = '';
-        document.getElementById("inputNombres").value = '';
-        document.getElementById("inputApellidos").value = '';
-        document.getElementById("inputTelefono").value = '';
-        document.getElementById("inputUsuario").value = '';
-        document.getElementById("inputPassword").value = '';
-        document.getElementById("inputPasswordConfirm").value = '';
-        document.getElementById("checkboxActivo").checked = false;
+        document.getElementById("idNC").value = '';
+        document.getElementById("inputNombre").value = '';
+        document.getElementById("inputDescripcion").innerHTML = '';
       }
     </script>
 </body>
