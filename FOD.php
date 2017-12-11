@@ -32,53 +32,11 @@
       <center><h1>Matriz FOD</h1></center>
 
           <form>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="form-group">
-              <label for="inputNombres">Nombres</label>
-              <input type="text" class="form-control" name="inputNombres" placeholder="Nombres" required>
+            <div class="row">
+                <?php
+                  $oOBA->FrmFOD();
+                ?>
             </div>
-            <div class="form-group">
-              <label for="inputApellidos">Apellidos</label>
-              <input type="text" class="form-control" name="inputApellidos" placeholder="Apellidos" required>
-            </div>
-            <div class="form-group">
-              <label for="inputTelefono">Teléfono</label>
-              <input type="text" class="form-control" name="inputTelefono" placeholder="XXXX-XXXX" required>
-            </div>
-            <div class="form-group">
-              <label for="inputUsuario">Usuario</label>
-              <input type="text" class="form-control" name="inputUsuario" placeholder="Usuario" required>
-            </div>
-            <div class="form-group">
-              <label for="inpuPassword">Password</label>
-              <input type="password" class="form-control" name="inputPassword" placeholder="Password" required>
-            </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-              <label for="inputNombres2">Nombres</label>
-              <input type="text" class="form-control" name="inputNombres2" placeholder="Nombres" required>
-            </div>
-            <div class="form-group">
-              <label for="inputApellidos2">Apellidos</label>
-              <input type="text" class="form-control" name="inputApellidos2" placeholder="Apellidos" required>
-            </div>
-            <div class="form-group">
-              <label for="inputTelefono2">Teléfono</label>
-              <input type="text" class="form-control" name="inputTelefono2" placeholder="XXXX-XXXX" required>
-            </div>
-            <div class="form-group">
-              <label for="inputUsuario2">Usuario</label>
-              <input type="text" class="form-control" name="inputUsuario2" placeholder="Usuario" required>
-            </div>
-            <div class="form-group">
-              <label for="inpuPassword2">Password</label>
-              <input type="password" class="form-control" name="inputPassword2" placeholder="Password" required>
-            </div>
-        </div>
-      </div>
-
           </form>
       <br/>
 

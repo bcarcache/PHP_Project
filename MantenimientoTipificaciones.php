@@ -48,7 +48,7 @@
         <div class="col-lg-6">
           <table class="table table-hover table-responsive">
             <thead>
-              <tr> <th>ID</th> <th>Nombre</th> <th>Descripción</th> </tr>
+              <tr> <th>ID</th> <th>Nombre</th> <th>Descripción</th> <th>Activo</th> </tr>
             </thead>
             <tbody>
               <?php
@@ -69,7 +69,7 @@
         <div class="col-lg-4">
           <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-              <input type="file" id="fileTempTipificaciones" name="fileTempTipificaciones" required>
+              <input type="file" id="fileTempTipificaciones" name="fileTempTipificaciones" accept=".xls" required>
             </div>
             <div class="form-group" align="center">
               <a href="./Temp/Tipificaciones.xls" name="excelTemplate">Descargar Plantilla</a><br/>

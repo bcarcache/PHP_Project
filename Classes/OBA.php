@@ -73,6 +73,78 @@
 			}
 		}
 
+		function FrmFOD() {
+			$oOBC = new OBC;
+			$idSiteVal = '';
+			$tesSiteVal = '';
+
+			//Validacion de Acciones
+			if ($_POST) {
+				if ($_POST['idSite']) {
+					$idSite = $_POST['idSite'];
+				} else {
+					$idSite = 0;
+				}
+			} elseif ($_GET) {
+				$action = base64_decode(urldecode($_GET["fa"]));
+				$idSite = base64_decode(urldecode($_GET["fid"]));
+
+				if (strcmp($action, 'editrecord') == 0) {
+				}
+			}
+
+			echo '<div class="col-lg-6">';
+            echo '<div class="form-group">';
+            echo '<label for="inputTesId">TES ID</label>';
+            echo '<input type="text" class="form-control" name="inputTesId" placeholder="TESID" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectEstado">Estado</label>';
+			echo '<select class="form-control" id="selectEstado" name="selectEstado" required>';
+			$this->MostrarSelector('estado');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputFechaConstruccion">Fecha de Construcción</label>';
+            echo '<input type="date" class="form-control" name="inputFechaConstruccion" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputUsuario">Usuario</label>';
+            echo '<input type="text" class="form-control" name="inputUsuario" placeholder="Usuario" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inpuPassword">Password</label>';
+            echo '<input type="password" class="form-control" name="inputPassword" placeholder="Password" required>';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="col-lg-6">';
+            echo '<div class="form-group">';
+            echo '<label for="inputNombre">Nombre</label>';
+            echo '<input type="text" class="form-control" name="inputNombre" placeholder="Nombre" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectCriticidad">Criticidad</label>';
+			echo '<select class="form-control" id="selectCriticidad" name="selectCriticidad" required>';
+			$this->MostrarSelector('criticidad');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipificacion">Tipificación</label>';
+			echo '<select class="form-control" id="selectTipificacion" name="selectTipificacion" required>';
+			$this->MostrarSelector('tipificacion');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputUsuario2">Usuario</label>';
+            echo '<input type="text" class="form-control" name="inputUsuario2" placeholder="Usuario" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inpuPassword2">Password</label>';
+            echo '<input type="password" class="form-control" name="inputPassword2" placeholder="Password" required>';
+            echo '</div>';
+            echo '</div>';
+		}
+
 		function MostrarMatrizFOD() {
 			return '<thead> <tr> <th>#</th> <th>First Name</th> <th>Last Name</th> <th>Username</th> <th>Username</th> <th>Username</th> <th>Username</th> <th>Username</th> </tr> </thead> <tbody> <tr> <th scope="row">1</th> <td>Mark</td> <td>Otto</td> <td>@mdo</td> <td>Otto</td> <td>Otto</td> <td>Otto</td> <td>Otto</td> </tr> </tbody>';
 		}
@@ -122,12 +194,12 @@
 			}
 		}
 
-		function MostrarPerfilesMttoUsuarios($perfil = '') {
+		function MostrarSelector($tipo, $valor = '') {
 			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pSeleccionarPerfiles()");
+			$ret = $oOBC->PDODBConnection("CALL pSeleccionarOpciones('". $tipo . "')");
 
 			foreach ($ret as $row) {
-				if (strcmp($row["Nombre"], $perfil) == 0) {
+				if (strcmp($row["Nombre"], $valor) == 0) {
 					echo '<option value="' . $row["Valor"] . '" selected>' . $row["Nombre"] . '</option>';
 				} else {
 					echo '<option value="' . $row["Valor"] . '">' . $row["Nombre"] . '</option>';
@@ -194,7 +266,7 @@
 			echo '<div class="form-group">';
 			echo '<label for="selectPerfil">Perfil</label>';
 			echo '<select class="form-control" id="selectPerfil" name="selectPerfil" required>';
-			$this->MostrarPerfilesMttoUsuarios($perfilUsuario);
+			$this->MostrarSelector('perfiles',$perfilUsuario);
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
@@ -287,6 +359,7 @@
 			$idEstadoVal = '';
 			$nombreEstadoVal = '';
 			$descripcionEstadoVal = '';
+			$activoEstadoVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
@@ -297,9 +370,9 @@
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
 				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
-				error_log($descripcion);
+				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('estado'," . $idEstado . "," . $nombre . "," . $descripcion . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('estado'," . $idEstado . "," . $nombre . "," . $descripcion . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idEstado = base64_decode(urldecode($_GET["fid"]));
@@ -310,6 +383,9 @@
 					foreach ($infoEstado as $row) {
 						$nombreEstadoVal = 'value="' . $row["nombre"] . '"';
 						$descripcionEstadoVal = $row["descripcion"];
+						if ($row["activo"]) {
+							$activoEstadoVal = 'checked';
+						}
 					}
 
 				}
@@ -323,6 +399,12 @@
 			echo '<label for="inputDescripcion">Descripción</label>';
 			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionEstadoVal . '</textarea>';
 			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoEstadoVal . ' value="1"/> Activo';
+			echo '</label>';
+			echo '</div>';
 		}
 
 		function MostrarMatrizEstados() {
@@ -333,7 +415,7 @@
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoEstados.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoEstados.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
@@ -368,7 +450,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('estado',0,". $nombre . "," . $descripcion . ")");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('estado',0,". $nombre . "," . $descripcion . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
@@ -386,6 +468,7 @@
 			$idNCVal = '';
 			$nombreNCVal = '';
 			$descripcionNCVal = '';
+			$activoNCVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
@@ -396,8 +479,9 @@
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
 				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
+				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('criticidad'," . $idNC . "," . $nombre . "," . $descripcion . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('criticidad'," . $idNC . "," . $nombre . "," . $descripcion . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idNC = base64_decode(urldecode($_GET["fid"]));
@@ -408,6 +492,9 @@
 					foreach ($infoNC as $row) {
 						$nombreNCVal = 'value="' . $row["nombre"] . '"';
 						$descripcionNCVal = $row["descripcion"];
+						if ($row["activo"]) {
+							$activoNCVal = 'checked';
+						}
 					}
 
 				}
@@ -421,6 +508,12 @@
 			echo '<label for="inputDescripcion">Descripción</label>';
 			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionNCVal . '</textarea>';
 			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoNCVal . ' value="1"/> Activo';
+			echo '</label>';
+			echo '</div>';
 		}
 
 		function MostrarMatrizCriticidad() {
@@ -431,7 +524,7 @@
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoCriticidad.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoCriticidad.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
@@ -466,7 +559,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('criticidad',0,". $nombre . "," . $descripcion . ")");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('criticidad',0,". $nombre . "," . $descripcion . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
@@ -484,6 +577,7 @@
 			$idTipificacionVal = '';
 			$nombreTipificacionVal = '';
 			$descripcionTipificacionVal = '';
+			$activoTipificacionVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
@@ -494,8 +588,9 @@
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
 				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
+				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipificacion'," . $idTipificacion . "," . $nombre . "," . $descripcion . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipificacion'," . $idTipificacion . "," . $nombre . "," . $descripcion . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idTipificacion = base64_decode(urldecode($_GET["fid"]));
@@ -506,6 +601,9 @@
 					foreach ($infoTipificacion as $row) {
 						$nombreTipificacionVal = 'value="' . $row["nombre"] . '"';
 						$descripcionTipificacionVal = $row["descripcion"];
+						if ($row["activo"]) {
+							$activoTipificacionVal = 'checked';
+						}
 					}
 
 				}
@@ -519,6 +617,12 @@
 			echo '<label for="inputDescripcion">Descripción</label>';
 			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionTipificacionVal . '</textarea>';
 			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoTipificacionVal . ' value="1"/> Activo';
+			echo '</label>';
+			echo '</div>';
 		}
 
 		function MostrarMatrizTipificaciones() {
@@ -529,7 +633,7 @@
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTipificaciones.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTipificaciones.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
@@ -564,7 +668,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('tipificacion',0,". $nombre . "," . $descripcion . ")");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('tipificacion',0,". $nombre . "," . $descripcion . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
@@ -581,6 +685,7 @@
 			$oOBC = new OBC;
 			$idZonaVal = '';
 			$nombreZonaVal = '';
+			$activoZonaVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
@@ -590,8 +695,9 @@
 					$idZona = 0;
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('tipificacion'," . $idZona . "," . $nombre . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('tipificacion'," . $idZona . "," . $nombre . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idZona = base64_decode(urldecode($_GET["fid"]));
@@ -601,6 +707,9 @@
 					$infoZona = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('zona'," . $idZona . ")");
 					foreach ($infoZona as $row) {
 						$nombreZonaVal = 'value="' . $row["nombre"] . '"';
+						if ($row["activo"]) {
+							$activoZonaVal = 'checked';
+						}
 					}
 
 				}
@@ -609,6 +718,12 @@
 			echo '<div class="form-group">';
 			echo '<label for="inputNombre">Nombre</label>';
 			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreZonaVal . ' required>';
+			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoZonaVal . ' value="1"/> Activo';
+			echo '</label>';
 			echo '</div>';
 		}
 
@@ -620,7 +735,7 @@
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoZonas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoZonas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
@@ -653,7 +768,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('zona',0,". $nombre . ")");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('zona',0,". $nombre . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
@@ -670,6 +785,7 @@
 			$oOBC = new OBC;
 			$idZGVal = '';
 			$nombreZGVal = '';
+			$activoZGVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
@@ -679,8 +795,9 @@
 					$idZG = 0;
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('zona_geografica'," . $idZG . "," . $nombre . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('zona_geografica'," . $idZG . "," . $nombre . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idZG = base64_decode(urldecode($_GET["fid"]));
@@ -690,6 +807,9 @@
 					$infoZG = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('zona_geografica'," . $idZG . ")");
 					foreach ($infoZG as $row) {
 						$nombreZGVal = 'value="' . $row["nombre"] . '"';
+						if ($row["activo"]) {
+							$activoZGVal = 'checked';
+						}
 					}
 
 				}
@@ -698,6 +818,12 @@
 			echo '<div class="form-group">';
 			echo '<label for="inputNombre">Nombre</label>';
 			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreZGVal . ' required>';
+			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoNCVal . ' value="1"/> Activo';
+			echo '</label>';
 			echo '</div>';
 		}
 
@@ -709,7 +835,7 @@
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoZonasGeograficas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoZonasGeograficas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
@@ -742,7 +868,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('zona_geografica',0,". $nombre . ")");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('zona_geografica',0,". $nombre . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
@@ -759,6 +885,7 @@
 			$oOBC = new OBC;
 			$idAreaVal = '';
 			$nombreAreaVal = '';
+			$activoAreaVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
@@ -768,8 +895,9 @@
 					$idArea = 0;
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('area'," . $idArea . "," . $nombre . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('area'," . $idArea . "," . $nombre . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idArea = base64_decode(urldecode($_GET["fid"]));
@@ -779,6 +907,9 @@
 					$infoArea = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('area'," . $idArea . ")");
 					foreach ($infoArea as $row) {
 						$nombreAreaVal = 'value="' . $row["nombre"] . '"';
+						if ($row["activo"]) {
+							$activoAreaVal = 'checked';
+						}
 					}
 
 				}
@@ -787,6 +918,12 @@
 			echo '<div class="form-group">';
 			echo '<label for="inputNombre">Nombre</label>';
 			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreAreaVal . ' required>';
+			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoAreaVal . ' value="1"/> Activo';
+			echo '</label>';
 			echo '</div>';
 		}
 
@@ -798,7 +935,7 @@
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoAreas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoAreas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
@@ -831,7 +968,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('area',0,". $nombre . ")");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('area',0,". $nombre . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");

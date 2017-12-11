@@ -48,7 +48,7 @@
         <div class="col-lg-6">
           <table class="table table-hover table-responsive">
             <thead>
-              <tr> <th>ID</th> <th>Nombre</th> <th>Descripción</th> </tr>
+              <tr> <th>ID</th> <th>Nombre</th> <th>Descripción</th> <th>Activo</th> </tr>
             </thead>
             <tbody>
               <?php
