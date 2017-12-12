@@ -56,7 +56,39 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="./bootstrap/js/vendor/jquery.min.js"><\/script>')</script>
+    <!--<script>window.jQuery || document.write('<script src="./bootstrap/js/vendor/jquery.min.js"><\/script>')</script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $('#selectDepartamento').change(function() {
+                    var opt = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "pbActions.php",
+                        data: {
+                          'fa': 'test',
+                          'selected_opt': opt,
+                        },
+                        success:function(data){
+                          var arr = {value: 0, text: 'Seleccionar...'};
+                          $('#selectMunicipio').append($('<option>', arr));
+                            /*{
+                            value: 1,
+                            text: 'My option'
+                          }));*/
+                            //alert('This was sent back: ' + data);
+
+                            /*$.each(items, function (i, item) {
+    $('#mySelect').append($('<option>', { 
+        value: item.value,
+        text : item.text 
+    }));
+});*/
+                        }
+                    });
+                });
+            });
+        </script>
     <script src="./bootstrap/js/vendor/popper.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
 </body>

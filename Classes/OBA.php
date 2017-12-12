@@ -109,13 +109,21 @@
             echo '<input type="date" class="form-control" name="inputFechaConstruccion" required>';
             echo '</div>';
             echo '<div class="form-group">';
-            echo '<label for="inputUsuario">Usuario</label>';
-            echo '<input type="text" class="form-control" name="inputUsuario" placeholder="Usuario" required>';
+            echo '<label for="inputUsuario">Encargado de Zona</label>';
+            echo '<input type="text" class="form-control" name="inputUsuario" placeholder="Encargado de Zona" required>';
             echo '</div>';
-            echo '<div class="form-group">';
-            echo '<label for="inpuPassword">Password</label>';
-            echo '<input type="password" class="form-control" name="inputPassword" placeholder="Password" required>';
-            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectZonaGeografica">Zona Geográfica</label>';
+			echo '<select class="form-control" id="selectZonaGeografica" name="selectZonaGeografica" required>';
+			$this->MostrarSelector('zona_geografica');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectDepartamento">Departamento</label>';
+			echo '<select class="form-control" id="selectDepartamento" name="selectDepartamento" required>';
+			$this->MostrarSelector('departamento');
+			echo '</select>';
+			echo '</div>';
             echo '</div>';
             echo '<div class="col-lg-6">';
             echo '<div class="form-group">';
@@ -134,15 +142,24 @@
 			$this->MostrarSelector('tipificacion');
 			echo '</select>';
 			echo '</div>';
-            echo '<div class="form-group">';
-            echo '<label for="inputUsuario2">Usuario</label>';
-            echo '<input type="text" class="form-control" name="inputUsuario2" placeholder="Usuario" required>';
-            echo '</div>';
-            echo '<div class="form-group">';
-            echo '<label for="inpuPassword2">Password</label>';
-            echo '<input type="password" class="form-control" name="inputPassword2" placeholder="Password" required>';
-            echo '</div>';
-            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectZona">Zona</label>';
+			echo '<select class="form-control" id="selectZona" name="selectZona" required>';
+			$this->MostrarSelector('zona');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectArea">Área</label>';
+			echo '<select class="form-control" id="selectArea" name="selectArea" required>';
+			$this->MostrarSelector('area');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectMunicipio">Municipio</label>';
+			echo '<select class="form-control" id="selectMunicipio" name="selectMunicipio" required>';
+			echo '</select>';
+			echo '</div>';
+			echo '</div>';
 		}
 
 		function MostrarMatrizFOD() {
@@ -975,6 +992,115 @@
 					    }
 					} else{
 					    error_log($_FILES['fileTempAreas']['error']);
+					}
+				}
+			}
+		}
+
+		function FrmMttoTiposCuenta() {
+			//Inicializar Variables
+			$oOBC = new OBC;
+			$idEstadoVal = '';
+			$nombreEstadoVal = '';
+			$descripcionEstadoVal = '';
+			$activoEstadoVal = '';
+
+			//Validacion de Acciones
+			if ($_POST) {
+				if ($_POST['idEstado']) {
+					$idEstado = $_POST['idEstado'];
+				} else {
+					$idEstado = 0;
+				}
+				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
+				$activo = $_POST['checkboxActivo'];
+
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipo_cuenta'," . $idEstado . "," . $nombre . "," . $descripcion . "," . $activo . ")");
+			} elseif ($_GET) {
+				$action = base64_decode(urldecode($_GET["fa"]));
+				$idEstado = base64_decode(urldecode($_GET["fid"]));
+				if (strcmp($action, 'editrecord') == 0) {
+					
+					$idEstadoVal = 'value="' . $idEstado . '"';
+					$infoEstado = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipo_cuenta'," . $idEstado . ")");
+					foreach ($infoEstado as $row) {
+						$nombreEstadoVal = 'value="' . $row["nombre"] . '"';
+						$descripcionEstadoVal = $row["descripcion"];
+						if ($row["activo"]) {
+							$activoEstadoVal = 'checked';
+						}
+					}
+
+				}
+			}
+			echo '<input type="hidden" id="idEstado" name="idEstado" ' . $idEstadoVal . '/>';
+			echo '<div class="form-group">';
+			echo '<label for="inputNombre">Nombre</label>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreEstadoVal . ' required>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputDescripcion">Descripción</label>';
+			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionEstadoVal . '</textarea>';
+			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoEstadoVal . ' value="1"/> Activo';
+			echo '</label>';
+			echo '</div>';
+		}
+
+		function MostrarMatrizTiposCuenta() {
+			$oOBC = new OBC;
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('tipo_cuenta')");
+
+			$fa = urlencode(base64_encode("editrecord"));
+
+			foreach ($ret as $row) {
+				$fid = urlencode(base64_encode($row["id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTipoCuenta.php.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+			}
+		}
+
+		function CargaMasivaTiposCuenta() {
+			if (isset($_FILES['fileTempTiposCuenta'])) {
+				if ($_FILES['fileTempTiposCuenta']['tmp_name']) {
+					if (!$_FILES['fileTempTiposCuenta']['error']) {
+
+					    $inputFile = $_FILES['fileTempTiposCuenta']['tmp_name'];
+
+					    $targetdir = 'Up/' . basename($_FILES["fileTempTiposCuenta"]["name"]);
+						move_uploaded_file($_FILES['fileTempTiposCuenta']['tmp_name'], $targetdir);
+					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
+
+					    if ($extension == "XLS") {
+							$excel = new PhpExcelReader;
+							$excel->read($targetdir);
+
+							$oOBC = new OBC;
+							//Saltar la primer fila del archivo
+							$x = 2;
+							while($x <= $excel->sheets[0]['numRows']) {
+								$y = 1;
+								while($y <= $excel->sheets[0]['numCols']) {
+								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
+								  if ($y == 1) {
+								  	$nombre = $oOBC->DBQuote($cell);
+								  } elseif ($y == 2) {
+								  	$descripcion = $oOBC->DBQuote($cell);
+								  }
+								  $y++;
+								}
+								$x++;
+
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('tipo_cuenta',0,". $nombre . "," . $descripcion . ",1)");
+							}
+					    } else {
+					    	error_log("Template has to be XLS 97-2003");
+					    }
+					} else{
+					    error_log($_FILES['fileTempTiposCuenta']['error']);
 					}
 				}
 			}
