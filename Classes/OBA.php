@@ -714,7 +714,7 @@
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
 				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('tipificacion'," . $idZona . "," . $nombre . "," . $activo . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('zona'," . $idZona . "," . $nombre . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idZona = base64_decode(urldecode($_GET["fid"]));
@@ -1000,53 +1000,53 @@
 		function FrmMttoTiposCuenta() {
 			//Inicializar Variables
 			$oOBC = new OBC;
-			$idEstadoVal = '';
-			$nombreEstadoVal = '';
-			$descripcionEstadoVal = '';
-			$activoEstadoVal = '';
+			$idTipoCuentaVal = '';
+			$nombreTipoCuentaVal = '';
+			$descripcionTipoCuentaVal = '';
+			$activoTipoCuentaVal = '';
 
 			//Validacion de Acciones
 			if ($_POST) {
-				if ($_POST['idEstado']) {
-					$idEstado = $_POST['idEstado'];
+				if ($_POST['idTipoCuenta']) {
+					$idTipoCuenta = $_POST['idTipoCuenta'];
 				} else {
-					$idEstado = 0;
+					$idTipoCuenta = 0;
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
 				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
 				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipo_cuenta'," . $idEstado . "," . $nombre . "," . $descripcion . "," . $activo . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipo_cuenta'," . $idTipoCuenta . "," . $nombre . "," . $descripcion . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
-				$idEstado = base64_decode(urldecode($_GET["fid"]));
+				$idTipoCuenta = base64_decode(urldecode($_GET["fid"]));
 				if (strcmp($action, 'editrecord') == 0) {
 					
-					$idEstadoVal = 'value="' . $idEstado . '"';
-					$infoEstado = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipo_cuenta'," . $idEstado . ")");
-					foreach ($infoEstado as $row) {
-						$nombreEstadoVal = 'value="' . $row["nombre"] . '"';
-						$descripcionEstadoVal = $row["descripcion"];
+					$idTipoCuentaVal = 'value="' . $idTipoCuenta . '"';
+					$infoTipoCuenta = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipo_cuenta'," . $idTipoCuenta . ")");
+					foreach ($infoTipoCuenta as $row) {
+						$nombreTipoCuentaVal = 'value="' . $row["nombre"] . '"';
+						$descripcionTipoCuentaVal = $row["descripcion"];
 						if ($row["activo"]) {
-							$activoEstadoVal = 'checked';
+							$activoTipoCuentaVal = 'checked';
 						}
 					}
 
 				}
 			}
-			echo '<input type="hidden" id="idEstado" name="idEstado" ' . $idEstadoVal . '/>';
+			echo '<input type="hidden" id="idTipoCuenta" name="idTipoCuenta" ' . $idTipoCuentaVal . '/>';
 			echo '<div class="form-group">';
 			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreEstadoVal . ' required>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreTipoCuentaVal . ' required>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="inputDescripcion">Descripción</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionEstadoVal . '</textarea>';
+			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionTipoCuentaVal . '</textarea>';
 			echo '</div>';
 			echo '<div class="checkbox">';
 			echo '<label>';
 			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoEstadoVal . ' value="1"/> Activo';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoTipoCuentaVal . ' value="1"/> Activo';
 			echo '</label>';
 			echo '</div>';
 		}
@@ -1059,7 +1059,7 @@
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTipoCuenta.php.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTipoCuenta.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
@@ -1101,6 +1101,106 @@
 					    }
 					} else{
 					    error_log($_FILES['fileTempTiposCuenta']['error']);
+					}
+				}
+			}
+		}
+
+		function FrmMttoEstadosContrato() {
+			//Inicializar Variables
+			$oOBC = new OBC;
+			$idECVal = '';
+			$nombreECVal = '';
+			$activoECVal = '';
+
+			//Validacion de Acciones
+			if ($_POST) {
+				if ($_POST['idEC']) {
+					$idEC = $_POST['idEC'];
+				} else {
+					$idEC = 0;
+				}
+				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$activo = $_POST['checkboxActivo'];
+
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('estado_contrato'," . $idEC . "," . $nombre . "," . $activo . ")");
+			} elseif ($_GET) {
+				$action = base64_decode(urldecode($_GET["fa"]));
+				$idEC = base64_decode(urldecode($_GET["fid"]));
+				if (strcmp($action, 'editrecord') == 0) {
+					
+					$idECVal = 'value="' . $idEC . '"';
+					$infoEC = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('estado_contrato'," . $idEC . ")");
+					foreach ($infoEC as $row) {
+						$nombreECVal = 'value="' . $row["nombre"] . '"';
+						if ($row["activo"]) {
+							$activoECVal = 'checked';
+						}
+					}
+
+				}
+			}
+			echo '<input type="hidden" id="idEC" name="idEC" ' . $idECVal . '/>';
+			echo '<div class="form-group">';
+			echo '<label for="inputNombre">Nombre</label>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreECVal . ' required>';
+			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoECVal . ' value="1"/> Activo';
+			echo '</label>';
+			echo '</div>';
+		}
+
+		function MostrarMatrizEstadosContrato() {
+			$oOBC = new OBC;
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('estado_contrato')");
+
+			$fa = urlencode(base64_encode("editrecord"));
+
+			foreach ($ret as $row) {
+				$fid = urlencode(base64_encode($row["id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoEstadosContrato.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+			}
+		}
+
+		function CargaMasivaEstadosContrato() {
+			if (isset($_FILES['fileTempEstadosContrato'])) {
+				if ($_FILES['fileTempEstadosContrato']['tmp_name']) {
+					if (!$_FILES['fileTempEstadosContrato']['error']) {
+
+					    $inputFile = $_FILES['fileTempEstadosContrato']['tmp_name'];
+
+					    $targetdir = 'Up/' . basename($_FILES["fileTempEstadosContrato"]["name"]);
+						move_uploaded_file($_FILES['fileTempEstadosContrato']['tmp_name'], $targetdir);
+					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
+
+					    if ($extension == "XLS") {
+							$excel = new PhpExcelReader;
+							$excel->read($targetdir);
+
+							$oOBC = new OBC;
+							//Saltar la primer fila del archivo
+							$x = 2;
+							while($x <= $excel->sheets[0]['numRows']) {
+								$y = 1;
+								while($y <= $excel->sheets[0]['numCols']) {
+								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
+								  if ($y == 1) {
+								  	$nombre = $oOBC->DBQuote($cell);
+								  }
+								  $y++;
+								}
+								$x++;
+
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('estado_contrato',0,". $nombre . ",1)");
+							}
+					    } else {
+					    	error_log("Template has to be XLS 97-2003");
+					    }
+					} else{
+					    error_log($_FILES['fileTempEstadosContrato']['error']);
 					}
 				}
 			}
