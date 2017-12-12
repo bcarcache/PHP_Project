@@ -103,7 +103,8 @@
       function limpiarForm() {
         document.getElementById("idEstado").value = '';
         document.getElementById("inputNombre").value = '';
-        document.getElementById("inputDescripcion").innerHTML = '';
+        document.getElementById("inputDescripcion").value = null;
+        document.getElementById("checkboxActivo").checked = false;
       }
     </script>
 </body>

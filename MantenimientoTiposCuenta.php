@@ -101,9 +101,10 @@
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       function limpiarForm() {
-        document.getElementById("idEstado").value = '';
+        document.getElementById("idTipoCuenta").value = '';
         document.getElementById("inputNombre").value = '';
-        document.getElementById("inputDescripcion").innerHTML = '';
+        document.getElementById("inputDescripcion").value = null;
+        document.getElementById("checkboxActivo").checked = false;
       }
     </script>
 </body>

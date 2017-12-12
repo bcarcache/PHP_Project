@@ -3,7 +3,7 @@
   require_once('./Classes/OBA.php');
   $oOBA = new OBA;
   $oOBA->validarSesion();
-  $oOBA->CargaMasivaZonas();
+  $oOBA->CargaMasivaTiposCobertura();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" href="./Imgs/Logo.png">
-	<title>Portal O&M - Mantenimiento de Zonas</title>
+	<title>Portal O&M - Mantenimiento de Tipos de Cobertura</title>
 
 	<!-- Bootstrap core CSS -->
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,13 +30,13 @@
       	?>
       </header>
 
-      <center><h1>Mantenimiento de Zonas</h1></center>
+      <center><h1>Mantenimiento de Tipos de Cobertura</h1></center>
 
       <div class="row">
         <div class="col-lg-6">
           <form method="POST">
             <?php
-              $oOBA->FrmMttoZonas();
+              $oOBA->FrmMttoTiposCobertura();
             ?>
             <center>
               <input type="submit" class="btn btn-success" value="Guardar"/>
@@ -48,11 +48,11 @@
         <div class="col-lg-6">
           <table class="table table-hover table-responsive">
             <thead>
-              <tr> <th>ID</th> <th>Nombre</th> <th>Activo</th> </tr>
+              <tr> <th>ID</th> <th>Nombre</th> <th>Descripción</th> <th>Activo</th> </tr>
             </thead>
             <tbody>
               <?php
-                $oOBA->MostrarMatrizZonas();
+                $oOBA->MostrarMatrizTiposCobertura();
               ?>
             </tbody>
           </table>
@@ -62,18 +62,18 @@
       <br/>
       <br/>
 
-      <center><h1>Carga Masiva de Zonas</h1></center>
+      <center><h1>Carga Masiva de Tipos de Cobertura</h1></center>
       <div class="row">
         <div class="col-lg-4">
         </div>
         <div class="col-lg-4">
           <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-              <input type="file" id="fileTempZonas" name="fileTempZonas" accept=".xls" required>
+              <input type="file" id="fileTempTiposCobertura" name="fileTempTiposCobertura" accept=".xls" required>
             </div>
             <div class="form-group" align="center">
-              <a href="./Temp/Zonas.xls" name="excelTemplate">Descargar Plantilla</a><br/>
-              <a href="./Temp/Zonas.xls" name="excelTemplate"><img src="./Imgs/excel.png" height="35"></a>
+              <a href="./Temp/TiposCobertura.xls" name="excelTemplate">Descargar Plantilla</a><br/>
+              <a href="./Temp/TiposCobertura.xls" name="excelTemplate"><img src="./Imgs/excel.png" height="35"></a>
             </div>
             <center>
               <input type="submit" class="btn btn-success" value="Cargar"/>
@@ -101,8 +101,9 @@
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       function limpiarForm() {
-        document.getElementById("idZona").value = '';
+        document.getElementById("idTipoCobertura").value = '';
         document.getElementById("inputNombre").value = '';
+        document.getElementById("inputDescripcion").value = null;
         document.getElementById("checkboxActivo").checked = false;
       }
     </script>

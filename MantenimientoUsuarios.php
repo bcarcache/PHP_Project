@@ -100,17 +100,6 @@
     <script src="./bootstrap/js/vendor/popper.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      function populateForm (element) {
-        alert('This is an alert');
-        if (element.hasAttributes()) {
-         var attrs = element.attributes;
-         var output = "";
-         for(var i = attrs.length - 1; i >= 0; i--) {
-           alert(attrs[i].name + "->" + attrs[i].value);
-         }
-       }
-      }
-
       function limpiarForm() {
         document.getElementById("idUsuario").value = '';
         document.getElementById("selectPerfil").value = '';

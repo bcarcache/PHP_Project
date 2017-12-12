@@ -48,7 +48,7 @@
         <div class="col-lg-6">
           <table class="table table-hover table-responsive">
             <thead>
-              <tr> <th>ID</th> <th>Nombre</th> </tr>
+              <tr> <th>ID</th> <th>Nombre</th> <th>Activo</th> </tr>
             </thead>
             <tbody>
               <?php
@@ -103,6 +103,7 @@
       function limpiarForm() {
         document.getElementById("idZG").value = '';
         document.getElementById("inputNombre").value = '';
+        document.getElementById("checkboxActivo").checked = false;
       }
     </script>
 </body>

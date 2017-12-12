@@ -103,6 +103,7 @@
       function limpiarForm() {
         document.getElementById("idTipificacion").value = '';
         document.getElementById("inputNombre").value = '';
+        document.getElementById("checkboxActivo").checked = false;
       }
     </script>
 </body>
