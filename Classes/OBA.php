@@ -124,6 +124,48 @@
 			$this->MostrarSelector('departamento');
 			echo '</select>';
 			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputDireccion">Dirección</label>';
+			echo '<textarea rows="4" cols="50" class="form-control" id="inputDireccion" name="inputDireccion" placeholder="Dirección"></textarea>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputDueñoSitio">Dueño del Sitio</label>';
+			echo '<input type="text" class="form-control" id="inputDueñoSitio" name="inputDueñoSitio" placeholder="Dueño del Sitio"/>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectEstadoContrato">Estado del Contrato</label>';
+			echo '<select class="form-control" id="selectEstadoContrato" name="selectEstadoContrato" required>';
+			$this->MostrarSelector('estado_contrato');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputFormaAcceso">Forma de Acceso</label>';
+            echo '<input type="text" class="form-control" name="inputFormaAcceso" placeholder="Forma de Acceso" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputRestriccionAcceso">Restricción de Acceso</label>';
+            echo '<input type="text" class="form-control" name="inputRestriccionAcceso" placeholder="Restricción de Acceso" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoEstructura">Tipo de Estructura</label>';
+			echo '<select class="form-control" id="selectTipoEstructura" name="selectTipoEstructura" required>';
+			$this->MostrarSelector('tipo_estructura');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoHierro">Tipo de Hierro</label>';
+			echo '<select class="form-control" id="selectTipoHierro" name="selectTipoHierro" required>';
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoMaterialShelter">Tipo de Material Shelter</label>';
+			echo '<select class="form-control" id="selectTipoMaterialShelter" name="selectTipoMaterialShelter" required>';
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputNIC">NIC</label>';
+            echo '<input type="text" class="form-control" name="inputNIC" placeholder="NIC" required>';
+			echo '</div>';
             echo '</div>';
             echo '<div class="col-lg-6">';
             echo '<div class="form-group">';
@@ -158,6 +200,52 @@
 			echo '<label for="selectMunicipio">Municipio</label>';
 			echo '<select class="form-control" id="selectMunicipio" name="selectMunicipio" required>';
 			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputLatitud">Latitud</label>';
+            echo '<input type="number" class="form-control" name="inputLatitud" step="0.000001" placeholder="Latitud" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputLongitud">Longitud</label>';
+            echo '<input type="number" class="form-control" name="inputLongitud" step="0.000001" placeholder="Longitud" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoCuenta">Tipo de Cuenta</label>';
+			echo '<select class="form-control" id="selectTipoCuenta" name="selectTipoCuenta" required>';
+			$this->MostrarSelector('tipo_cuenta');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoCobertura">Tipo de Cobertura</label>';
+			echo '<select class="form-control" id="selectTipoCobertura" name="selectTipoCobertura" required>';
+			$this->MostrarSelector('tipo_cobertura');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputContactoAcceso">Contacto de Acceso</label>';
+            echo '<input type="text" class="form-control" name="inputContactoAcceso" placeholder="Contacto de Acceso" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectPeligrosidad">Nivel de Peligrosidad</label>';
+			echo '<select class="form-control" id="selectPeligrosidad" name="selectPeligrosidad" required>';
+			$this->MostrarSelector('peligrosidad');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputAltura">Altura (M)</label>';
+            echo '<input type="number" class="form-control" name="inputAltura" min="0" placeholder="Altura (M)" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoMuroPerimetral">Tipo de Muro Perimetral</label>';
+			echo '<select class="form-control" id="selectTipoMuroPerimetral" name="selectTipoMuroPerimetral" required>';
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label>Operadores Coubicados</label>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputComConElectrica">Dirección</label>';
+			echo '<textarea rows="4" cols="50" class="form-control" id="inputComConElectrica" name="inputComConElectrica" placeholder="Comentarios de Conexión Eléctrica"></textarea>';
 			echo '</div>';
 			echo '</div>';
 		}
@@ -370,81 +458,76 @@
 			}
 		}
 
-		function FrmMttoEstados() {
+		function FrmMttoN($cat) {
 			//Inicializar Variables
 			$oOBC = new OBC;
-			$idEstadoVal = '';
-			$nombreEstadoVal = '';
-			$descripcionEstadoVal = '';
-			$activoEstadoVal = '';
+			$idCatVal = '';
+			$nombreCatVal = '';
+			$activoCatVal = '';
+			$cat = $oOBC->DBQuote($cat);
 
 			//Validacion de Acciones
 			if ($_POST) {
-				if ($_POST['idEstado']) {
-					$idEstado = $_POST['idEstado'];
+				if ($_POST['idCat']) {
+					$idCat = $_POST['idCat'];
 				} else {
-					$idEstado = 0;
+					$idCat = 0;
 				}
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
 				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('estado'," . $idEstado . "," . $nombre . "," . $descripcion . "," . $activo . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN(" . $cat . "," . $idCat . "," . $nombre . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
-				$idEstado = base64_decode(urldecode($_GET["fid"]));
+				$idCat = base64_decode(urldecode($_GET["fid"]));
 				if (strcmp($action, 'editrecord') == 0) {
 					
-					$idEstadoVal = 'value="' . $idEstado . '"';
-					$infoEstado = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('estado'," . $idEstado . ")");
-					foreach ($infoEstado as $row) {
-						$nombreEstadoVal = 'value="' . $row["nombre"] . '"';
-						$descripcionEstadoVal = $row["descripcion"];
+					$idCatVal = 'value="' . $idCat . '"';
+					$infoCat = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo(" . $cat . "," . $idCat . ")");
+					foreach ($infoCat as $row) {
+						$nombreCatVal = 'value="' . $row["nombre"] . '"';
 						if ($row["activo"]) {
-							$activoEstadoVal = 'checked';
+							$activoCatVal = 'checked';
 						}
 					}
 
 				}
 			}
-			echo '<input type="hidden" id="idEstado" name="idEstado" ' . $idEstadoVal . '/>';
+			echo '<input type="hidden" id="idCat" name="idCat" ' . $idCatVal . '/>';
 			echo '<div class="form-group">';
 			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreEstadoVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputDescripcion">Descripción</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionEstadoVal . '</textarea>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreCatVal . ' required>';
 			echo '</div>';
 			echo '<div class="checkbox">';
 			echo '<label>';
 			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoEstadoVal . ' value="1"/> Activo';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoCatVal . ' value="1"/> Activo';
 			echo '</label>';
 			echo '</div>';
 		}
 
-		function MostrarMatrizEstados() {
+		function MostrarMatrizN($cat, $redir) {
 			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('estado')");
+			$cat = $oOBC->DBQuote($cat);
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo(" . $cat . ")");
 
 			$fa = urlencode(base64_encode("editrecord"));
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoEstados.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="' . $redir . '?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
-		function CargaMasivaEstados() {
-			if (isset($_FILES['fileTempEstados'])) {
-				if ($_FILES['fileTempEstados']['tmp_name']) {
-					if (!$_FILES['fileTempEstados']['error']) {
+		function CargaMasivaN($cat) {
+			if (isset($_FILES['fileTemp'])) {
+				if ($_FILES['fileTemp']['tmp_name']) {
+					if (!$_FILES['fileTemp']['error']) {
 
-					    $inputFile = $_FILES['fileTempEstados']['tmp_name'];
+					    $inputFile = $_FILES['fileTemp']['tmp_name'];
 
-					    $targetdir = 'Up/' . basename($_FILES["fileTempEstados"]["name"]);
-						move_uploaded_file($_FILES['fileTempEstados']['tmp_name'], $targetdir);
+					    $targetdir = 'Up/' . basename($_FILES["fileTemp"]["name"]);
+						move_uploaded_file($_FILES['fileTemp']['tmp_name'], $targetdir);
 					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
 
 					    if ($extension == "XLS") {
@@ -452,6 +535,117 @@
 							$excel->read($targetdir);
 
 							$oOBC = new OBC;
+							$cat = $oOBC->DBQuote($cat);
+							//Saltar la primer fila del archivo
+							$x = 2;
+							while($x <= $excel->sheets[0]['numRows']) {
+								$y = 1;
+								while($y <= $excel->sheets[0]['numCols']) {
+								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
+								  if ($y == 1) {
+								  	$nombre = $oOBC->DBQuote($cell);
+								  }
+								  $y++;
+								}
+								$x++;
+
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN(" . $cat . ",0,". $nombre . ",1)");
+							}
+					    } else {
+					    	error_log("Template has to be XLS 97-2003");
+					    }
+					} else{
+					    error_log($_FILES['fileTemp']['error']);
+					}
+				}
+			}
+		}
+
+		function FrmMttoND($cat) {
+			//Inicializar Variables
+			$oOBC = new OBC;
+			$idCatVal = '';
+			$nombreCatVal = '';
+			$descripcionCatVal = '';
+			$activoCatVal = '';
+			$cat = $oOBC->DBQuote($cat);
+
+			//Validacion de Acciones
+			if ($_POST) {
+				if ($_POST['idCat']) {
+					$idCat = $_POST['idCat'];
+				} else {
+					$idCat = 0;
+				}
+				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
+				$activo = $_POST['checkboxActivo'];
+
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND(" . $cat . "," . $idCat . "," . $nombre . "," . $descripcion . "," . $activo . ")");
+			} elseif ($_GET) {
+				$action = base64_decode(urldecode($_GET["fa"]));
+				$idCat = base64_decode(urldecode($_GET["fid"]));
+				if (strcmp($action, 'editrecord') == 0) {
+					
+					$idCatVal = 'value="' . $idCat . '"';
+					$infoCat = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo(" . $cat . "," . $idCat . ")");
+					foreach ($infoCat as $row) {
+						$nombreCatVal = 'value="' . $row["nombre"] . '"';
+						$descripcionCatVal = $row["descripcion"];
+						if ($row["activo"]) {
+							$activoCatVal = 'checked';
+						}
+					}
+
+				}
+			}
+			echo '<input type="hidden" id="idCat" name="idCat" ' . $idCatVal . '/>';
+			echo '<div class="form-group">';
+			echo '<label for="inputNombre">Nombre</label>';
+			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreCatVal . ' required>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputDescripcion">Descripción</label>';
+			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionCatVal . '</textarea>';
+			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoCatVal . ' value="1"/> Activo';
+			echo '</label>';
+			echo '</div>';
+		}
+
+		function MostrarMatrizND($cat, $redir) {
+			$oOBC = new OBC;
+			$cat = $oOBC->DBQuote($cat);
+			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo(" . $cat . ")");
+
+			$fa = urlencode(base64_encode("editrecord"));
+
+			foreach ($ret as $row) {
+				$fid = urlencode(base64_encode($row["id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="' . $redir . '?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+			}
+		}
+
+		function CargaMasivaND($cat) {
+			if (isset($_FILES['fileTemp'])) {
+				if ($_FILES['fileTemp']['tmp_name']) {
+					if (!$_FILES['fileTemp']['error']) {
+
+					    $inputFile = $_FILES['fileTemp']['tmp_name'];
+
+					    $targetdir = 'Up/' . basename($_FILES["fileTemp"]["name"]);
+						move_uploaded_file($_FILES['fileTemp']['tmp_name'], $targetdir);
+					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
+
+					    if ($extension == "XLS") {
+							$excel = new PhpExcelReader;
+							$excel->read($targetdir);
+
+							$oOBC = new OBC;
+							$cat = $oOBC->DBQuote($cat);
 							//Saltar la primer fila del archivo
 							$x = 2;
 							while($x <= $excel->sheets[0]['numRows']) {
@@ -467,958 +661,13 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('estado',0,". $nombre . "," . $descripcion . ",1)");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND(" . $cat . ",0,". $nombre . "," . $descripcion . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
 					    }
 					} else{
-					    error_log($_FILES['fileTempEstados']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoCriticidad() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idNCVal = '';
-			$nombreNCVal = '';
-			$descripcionNCVal = '';
-			$activoNCVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idNC']) {
-					$idNC = $_POST['idNC'];
-				} else {
-					$idNC = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('criticidad'," . $idNC . "," . $nombre . "," . $descripcion . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idNC = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idNCVal = 'value="' . $idNC . '"';
-					$infoNC = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('criticidad'," . $idNC . ")");
-					foreach ($infoNC as $row) {
-						$nombreNCVal = 'value="' . $row["nombre"] . '"';
-						$descripcionNCVal = $row["descripcion"];
-						if ($row["activo"]) {
-							$activoNCVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idNC" name="idNC" ' . $idNCVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreNCVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputDescripcion">Descripción</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionNCVal . '</textarea>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoNCVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizCriticidad() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('criticidad')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoCriticidad.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaCriticidad() {
-			if (isset($_FILES['fileTempCriticidad'])) {
-				if ($_FILES['fileTempCriticidad']['tmp_name']) {
-					if (!$_FILES['fileTempCriticidad']['error']) {
-
-					    $inputFile = $_FILES['fileTempCriticidad']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempCriticidad"]["name"]);
-						move_uploaded_file($_FILES['fileTempCriticidad']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  } elseif ($y == 2) {
-								  	$descripcion = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('criticidad',0,". $nombre . "," . $descripcion . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempCriticidad']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoTipificaciones() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idTipificacionVal = '';
-			$nombreTipificacionVal = '';
-			$descripcionTipificacionVal = '';
-			$activoTipificacionVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idTipificacion']) {
-					$idTipificacion = $_POST['idTipificacion'];
-				} else {
-					$idTipificacion = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipificacion'," . $idTipificacion . "," . $nombre . "," . $descripcion . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idTipificacion = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idTipificacionVal = 'value="' . $idTipificacion . '"';
-					$infoTipificacion = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipificacion'," . $idTipificacion . ")");
-					foreach ($infoTipificacion as $row) {
-						$nombreTipificacionVal = 'value="' . $row["nombre"] . '"';
-						$descripcionTipificacionVal = $row["descripcion"];
-						if ($row["activo"]) {
-							$activoTipificacionVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idTipificacion" name="idTipificacion" ' . $idTipificacionVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreTipificacionVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputDescripcion">Descripción</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionTipificacionVal . '</textarea>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoTipificacionVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizTipificaciones() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('tipificacion')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTipificaciones.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaTipificaciones() {
-			if (isset($_FILES['fileTempTipificaciones'])) {
-				if ($_FILES['fileTempTipificaciones']['tmp_name']) {
-					if (!$_FILES['fileTempTipificaciones']['error']) {
-
-					    $inputFile = $_FILES['fileTempTipificaciones']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempTipificaciones"]["name"]);
-						move_uploaded_file($_FILES['fileTempTipificaciones']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  } elseif ($y == 2) {
-								  	$descripcion = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('tipificacion',0,". $nombre . "," . $descripcion . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempTipificaciones']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoZonas() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idZonaVal = '';
-			$nombreZonaVal = '';
-			$activoZonaVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idZona']) {
-					$idZona = $_POST['idZona'];
-				} else {
-					$idZona = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('zona'," . $idZona . "," . $nombre . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idZona = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idZonaVal = 'value="' . $idZona . '"';
-					$infoZona = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('zona'," . $idZona . ")");
-					foreach ($infoZona as $row) {
-						$nombreZonaVal = 'value="' . $row["nombre"] . '"';
-						if ($row["activo"]) {
-							$activoZonaVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idZona" name="idZona" ' . $idZonaVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreZonaVal . ' required>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoZonaVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizZonas() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('zona')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoZonas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaZonas() {
-			if (isset($_FILES['fileTempZonas'])) {
-				if ($_FILES['fileTempZonas']['tmp_name']) {
-					if (!$_FILES['fileTempZonas']['error']) {
-
-					    $inputFile = $_FILES['fileTempZonas']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempZonas"]["name"]);
-						move_uploaded_file($_FILES['fileTempZonas']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('zona',0,". $nombre . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempZonas']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoZonasGeograficas() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idZGVal = '';
-			$nombreZGVal = '';
-			$activoZGVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idZG']) {
-					$idZG = $_POST['idZG'];
-				} else {
-					$idZG = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('zona_geografica'," . $idZG . "," . $nombre . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idZG = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idZGVal = 'value="' . $idZG . '"';
-					$infoZG = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('zona_geografica'," . $idZG . ")");
-					foreach ($infoZG as $row) {
-						$nombreZGVal = 'value="' . $row["nombre"] . '"';
-						if ($row["activo"]) {
-							$activoZGVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idZG" name="idZG" ' . $idZGVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreZGVal . ' required>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoZGVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizZonasGeograficas() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('zona_geografica')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoZonasGeograficas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaZonasGeograficas() {
-			if (isset($_FILES['fileTempZonasGeograficas'])) {
-				if ($_FILES['fileTempZonasGeograficas']['tmp_name']) {
-					if (!$_FILES['fileTempZonasGeograficas']['error']) {
-
-					    $inputFile = $_FILES['fileTempZonasGeograficas']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempZonasGeograficas"]["name"]);
-						move_uploaded_file($_FILES['fileTempZonasGeograficas']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('zona_geografica',0,". $nombre . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempZonasGeograficas']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoAreas() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idAreaVal = '';
-			$nombreAreaVal = '';
-			$activoAreaVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idArea']) {
-					$idArea = $_POST['idArea'];
-				} else {
-					$idArea = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('area'," . $idArea . "," . $nombre . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idArea = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idAreaVal = 'value="' . $idArea . '"';
-					$infoArea = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('area'," . $idArea . ")");
-					foreach ($infoArea as $row) {
-						$nombreAreaVal = 'value="' . $row["nombre"] . '"';
-						if ($row["activo"]) {
-							$activoAreaVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idArea" name="idArea" ' . $idAreaVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreAreaVal . ' required>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoAreaVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizAreas() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('area')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoAreas.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaAreas() {
-			if (isset($_FILES['fileTempAreas'])) {
-				if ($_FILES['fileTempAreas']['tmp_name']) {
-					if (!$_FILES['fileTempAreas']['error']) {
-
-					    $inputFile = $_FILES['fileTempAreas']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempAreas"]["name"]);
-						move_uploaded_file($_FILES['fileTempAreas']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('area',0,". $nombre . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempAreas']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoTiposCuenta() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idTipoCuentaVal = '';
-			$nombreTipoCuentaVal = '';
-			$descripcionTipoCuentaVal = '';
-			$activoTipoCuentaVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idTipoCuenta']) {
-					$idTipoCuenta = $_POST['idTipoCuenta'];
-				} else {
-					$idTipoCuenta = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipo_cuenta'," . $idTipoCuenta . "," . $nombre . "," . $descripcion . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idTipoCuenta = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idTipoCuentaVal = 'value="' . $idTipoCuenta . '"';
-					$infoTipoCuenta = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipo_cuenta'," . $idTipoCuenta . ")");
-					foreach ($infoTipoCuenta as $row) {
-						$nombreTipoCuentaVal = 'value="' . $row["nombre"] . '"';
-						$descripcionTipoCuentaVal = $row["descripcion"];
-						if ($row["activo"]) {
-							$activoTipoCuentaVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idTipoCuenta" name="idTipoCuenta" ' . $idTipoCuentaVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreTipoCuentaVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputDescripcion">Descripción</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionTipoCuentaVal . '</textarea>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoTipoCuentaVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizTiposCuenta() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('tipo_cuenta')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTiposCuenta.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaTiposCuenta() {
-			if (isset($_FILES['fileTempTiposCuenta'])) {
-				if ($_FILES['fileTempTiposCuenta']['tmp_name']) {
-					if (!$_FILES['fileTempTiposCuenta']['error']) {
-
-					    $inputFile = $_FILES['fileTempTiposCuenta']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempTiposCuenta"]["name"]);
-						move_uploaded_file($_FILES['fileTempTiposCuenta']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  } elseif ($y == 2) {
-								  	$descripcion = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('tipo_cuenta',0,". $nombre . "," . $descripcion . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempTiposCuenta']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoEstadosContrato() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idECVal = '';
-			$nombreECVal = '';
-			$activoECVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idEC']) {
-					$idEC = $_POST['idEC'];
-				} else {
-					$idEC = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN('estado_contrato'," . $idEC . "," . $nombre . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idEC = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idECVal = 'value="' . $idEC . '"';
-					$infoEC = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('estado_contrato'," . $idEC . ")");
-					foreach ($infoEC as $row) {
-						$nombreECVal = 'value="' . $row["nombre"] . '"';
-						if ($row["activo"]) {
-							$activoECVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idEC" name="idEC" ' . $idECVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreECVal . ' required>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoECVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizEstadosContrato() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('estado_contrato')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoEstadosContrato.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaEstadosContrato() {
-			if (isset($_FILES['fileTempEstadosContrato'])) {
-				if ($_FILES['fileTempEstadosContrato']['tmp_name']) {
-					if (!$_FILES['fileTempEstadosContrato']['error']) {
-
-					    $inputFile = $_FILES['fileTempEstadosContrato']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempEstadosContrato"]["name"]);
-						move_uploaded_file($_FILES['fileTempEstadosContrato']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN('estado_contrato',0,". $nombre . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempEstadosContrato']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoTiposCobertura() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idTipoCobeturaVal = '';
-			$nombreTipoCobeturaVal = '';
-			$descripcionTipoCobeturaVal = '';
-			$activoTipoCobeturaVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idTipoCobetura']) {
-					$idTipoCobetura = $_POST['idTipoCobetura'];
-				} else {
-					$idTipoCobetura = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipo_cobertura'," . $idTipoCobetura . "," . $nombre . "," . $descripcion . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idTipoCobetura = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idTipoCobeturaVal = 'value="' . $idTipoCobetura . '"';
-					$infoTipoCobetura = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipo_cobertura'," . $idTipoCobetura . ")");
-					foreach ($infoTipoCobetura as $row) {
-						$nombreTipoCobeturaVal = 'value="' . $row["nombre"] . '"';
-						$descripcionTipoCobeturaVal = $row["descripcion"];
-						if ($row["activo"]) {
-							$activoTipoCobeturaVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idTipoCobertura" name="idTipoCobertura" ' . $idTipoCobeturaVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreTipoCobeturaVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputDescripcion">Descripción</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionTipoCobeturaVal . '</textarea>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoTipoCobeturaVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizTiposCobertura() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('tipo_cobertura')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTiposCobertura.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaTiposCobertura() {
-			if (isset($_FILES['fileTempTiposCobertura'])) {
-				if ($_FILES['fileTempTiposCobertura']['tmp_name']) {
-					if (!$_FILES['fileTempTiposCobertura']['error']) {
-
-					    $inputFile = $_FILES['fileTempTiposCobertura']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempTiposCobertura"]["name"]);
-						move_uploaded_file($_FILES['fileTempTiposCobertura']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  } elseif ($y == 2) {
-								  	$descripcion = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('tipo_cobertura',0,". $nombre . "," . $descripcion . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempTiposCobertura']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoTiposEstructura() {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idTipoEstructuraVal = '';
-			$nombreTipoEstructuraVal = '';
-			$descripcionTipoEstructuraVal = '';
-			$activoTipoEstructuraVal = '';
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idTipoEstructura']) {
-					$idTipoEstructura = $_POST['idTipoEstructura'];
-				} else {
-					$idTipoEstructura = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND('tipo_estructura'," . $idTipoEstructura . "," . $nombre . "," . $descripcion . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idTipoEstructura = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idTipoEstructuraVal = 'value="' . $idTipoEstructura . '"';
-					$infoTipoEstructura = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo('tipo_estructura'," . $idTipoEstructura . ")");
-					foreach ($infoTipoEstructura as $row) {
-						$nombreTipoEstructuraVal = 'value="' . $row["nombre"] . '"';
-						$descripcionTipoEstructuraVal = $row["descripcion"];
-						if ($row["activo"]) {
-							$activoTipoEstructuraVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idTipoEstructura" name="idTipoEstructura" ' . $idTipoEstructuraVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreTipoEstructuraVal . ' required>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="inputDescripcion">Descripción</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripción">' . $descripcionTipoEstructuraVal . '</textarea>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoTipoEstructuraVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizTiposEstructura() {
-			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo('tipo_estructura')");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="MantenimientoTiposEstructura.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaTiposEstructura() {
-			if (isset($_FILES['fileTempTiposEstructura'])) {
-				if ($_FILES['fileTempTiposEstructura']['tmp_name']) {
-					if (!$_FILES['fileTempTiposEstructura']['error']) {
-
-					    $inputFile = $_FILES['fileTempTiposEstructura']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTempTiposEstructura"]["name"]);
-						move_uploaded_file($_FILES['fileTempTiposEstructura']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  } elseif ($y == 2) {
-								  	$descripcion = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND('tipo_estructura',0,". $nombre . "," . $descripcion . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTempTiposEstructura']['error']);
+					    error_log($_FILES['fileTemp']['error']);
 					}
 				}
 			}

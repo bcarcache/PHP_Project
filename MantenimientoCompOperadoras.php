@@ -1,6 +1,6 @@
 <?php	
 	session_start();
-  $cat = 'zona';
+  $cat = 'comp_operadora';
   $redir = basename($_SERVER['PHP_SELF']);
   require_once('./Classes/OBA.php');
   $oOBA = new OBA;
@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" href="./Imgs/Logo.png">
-	<title>Portal O&M - Mantenimiento de Zonas</title>
+	<title>Portal O&M - Mantenimiento de Compañías Operadoras</title>
 
 	<!-- Bootstrap core CSS -->
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
       	?>
       </header>
 
-      <center><h1>Mantenimiento de Zonas</h1></center>
+      <center><h1>Mantenimiento de Compañías Operadoras</h1></center>
 
       <div class="row">
         <div class="col-lg-6">
@@ -64,7 +64,7 @@
       <br/>
       <br/>
 
-      <center><h1>Carga Masiva de Zonas</h1></center>
+      <center><h1>Carga Masiva de Compañías Operadoras</h1></center>
       <div class="row">
         <div class="col-lg-4">
         </div>
@@ -74,8 +74,8 @@
               <input type="file" id="fileTemp" name="fileTemp" accept=".xls" required>
             </div>
             <div class="form-group" align="center">
-              <a href="./Temp/Zonas.xls" name="excelTemplate">Descargar Plantilla</a><br/>
-              <a href="./Temp/Zonas.xls" name="excelTemplate"><img src="./Imgs/excel.png" height="35"></a>
+              <a href="./Temp/CompOperadoras.xls" name="excelTemplate">Descargar Plantilla</a><br/>
+              <a href="./Temp/CompOperadoras.xls" name="excelTemplate"><img src="./Imgs/excel.png" height="35"></a>
             </div>
             <center>
               <input type="submit" class="btn btn-success" value="Cargar"/>

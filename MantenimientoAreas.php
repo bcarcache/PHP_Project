@@ -1,9 +1,11 @@
 <?php	
 	session_start();
+  $cat = 'area';
+  $redir = basename($_SERVER['PHP_SELF']);
   require_once('./Classes/OBA.php');
   $oOBA = new OBA;
   $oOBA->validarSesion();
-  $oOBA->CargaMasivaAreas();
+  $oOBA->CargaMasivaN($cat);
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,7 +38,7 @@
         <div class="col-lg-6">
           <form method="POST">
             <?php
-              $oOBA->FrmMttoAreas();
+              $oOBA->FrmMttoN($cat);
             ?>
             <center>
               <input type="submit" class="btn btn-success" value="Guardar"/>
@@ -52,7 +54,7 @@
             </thead>
             <tbody>
               <?php
-                $oOBA->MostrarMatrizAreas();
+                $oOBA->MostrarMatrizN($cat, $redir);
               ?>
             </tbody>
           </table>
@@ -69,7 +71,7 @@
         <div class="col-lg-4">
           <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-              <input type="file" id="fileTempAreas" name="fileTempAreas" accept=".xls" required>
+              <input type="file" id="fileTemp" name="fileTemp" accept=".xls" required>
             </div>
             <div class="form-group" align="center">
               <a href="./Temp/Areas.xls" name="excelTemplate">Descargar Plantilla</a><br/>
@@ -101,7 +103,7 @@
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       function limpiarForm() {
-        document.getElementById("idArea").value = '';
+        document.getElementById("idCat").value = '';
         document.getElementById("inputNombre").value = '';
         document.getElementById("checkboxActivo").checked = false;
       }
