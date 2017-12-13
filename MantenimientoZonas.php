@@ -5,7 +5,7 @@
   require_once('./Classes/OBA.php');
   $oOBA = new OBA;
   $oOBA->validarSesion();
-  $oOBA->CargaMasivaN($cat);
+  $oOBA->CMCatalogo($cat);
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,7 @@
         <div class="col-lg-6">
           <form method="POST">
             <?php
-              $oOBA->FrmMttoN($cat);
+              $oOBA->FrmMtto($cat);
             ?>
             <center>
               <input type="submit" class="btn btn-success" value="Guardar"/>
@@ -50,11 +50,11 @@
         <div class="col-lg-6">
           <table class="table table-hover table-responsive">
             <thead>
-              <tr> <th>ID</th> <th>Nombre</th> <th>Activo</th> </tr>
+              <tr> <th>ID</th> <th>Nombre</th> <th>Descripción</th> <th>Activo</th> </tr>
             </thead>
             <tbody>
               <?php
-                $oOBA->MostrarMatrizN($cat, $redir);
+                $oOBA->MMCatalogo($cat, $redir);
               ?>
             </tbody>
           </table>
@@ -105,6 +105,7 @@
       function limpiarForm() {
         document.getElementById("idCat").value = '';
         document.getElementById("inputNombre").value = '';
+        document.getElementById("inputDescripcion").value = null;
         document.getElementById("checkboxActivo").checked = false;
       }
     </script>

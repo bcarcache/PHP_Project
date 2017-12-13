@@ -5,7 +5,7 @@
   require_once('./Classes/OBA.php');
   $oOBA = new OBA;
   $oOBA->validarSesion();
-  $oOBA->CargaMasivaND($cat);
+  $oOBA->CMCatalogo($cat);
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,7 @@
         <div class="col-lg-6">
           <form method="POST">
             <?php
-              $oOBA->FrmMttoND($cat);
+              $oOBA->FrmMtto($cat);
             ?>
             <center>
               <input type="submit" class="btn btn-success" value="Guardar"/>
@@ -54,7 +54,7 @@
             </thead>
             <tbody>
               <?php
-                $oOBA->MostrarMatrizND($cat, $redir);
+                $oOBA->MMCatalogo($cat, $redir);
               ?>
             </tbody>
           </table>

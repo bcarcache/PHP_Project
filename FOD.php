@@ -34,7 +34,8 @@
           <form>
             <div class="row">
                 <?php
-                  $oOBA->FrmFOD();
+                  //$oOBA->FrmFOD();
+                  $oOBA->FrmFOD3C();
                 ?>
             </div>
           </form>
@@ -64,28 +65,32 @@
                     var opt = $(this).val();
                     $.ajax({
                         type: "POST",
-                        url: "pbActions.php",
+                        url: "Classes/OBP.php",
+                        datatype: "html",
                         data: {
-                          'fa': 'test',
+                          'fa': 'deptmun',
                           'selected_opt': opt,
                         },
                         success:function(data){
+                          $('#selectMunicipio').empty();
                           var arr = {value: 0, text: 'Seleccionar...'};
                           $('#selectMunicipio').append($('<option>', arr));
-                            /*{
-                            value: 1,
-                            text: 'My option'
-                          }));*/
-                            //alert('This was sent back: ' + data);
-
-                            /*$.each(items, function (i, item) {
-    $('#mySelect').append($('<option>', { 
-        value: item.value,
-        text : item.text 
-    }));
-});*/
+                          var l1 = data.split("@@");
+                          for (var i = 0; i < l1.length; ++i) {
+                            var l2 = l1[i].split("@");
+                            if (l2[0] && l2[1]) {
+                              var narr = {value: l2[0], text: l2[1]};
+                              $('#selectMunicipio').append($('<option>', narr));
+                            }
+                          }
+                          $("#selectMunicipio").removeAttr('disabled');
                         }
                     });
+
+                    if (!opt) {
+                      //alert('no opt');
+                      //$("#selectMunicipio").prop('disabled', true);
+                    }
                 });
             });
         </script>

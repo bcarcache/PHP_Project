@@ -73,7 +73,7 @@
 			}
 		}
 
-		function FrmFOD() {
+		function FrmFOD3C() {
 			$oOBC = new OBC;
 			$idSiteVal = '';
 			$tesSiteVal = '';
@@ -93,89 +93,184 @@
 				}
 			}
 
-			echo '<div class="col-lg-6">';
+			//Inicia Primer Columna
+			echo '<div class="col-lg-4">';
             echo '<div class="form-group">';
             echo '<label for="inputTesId">TES ID</label>';
             echo '<input type="text" class="form-control" name="inputTesId" placeholder="TESID" required>';
             echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectEstado">Estado</label>';
-			echo '<select class="form-control" id="selectEstado" name="selectEstado" required>';
-			$this->MostrarSelector('estado');
+			echo '<label for="selectCriticidad">Criticidad</label>';
+			echo '<select class="form-control" id="selectCriticidad" name="selectCriticidad" required>';
+			$this->MostrarSelector('criticidad');
 			echo '</select>';
 			echo '</div>';
-            echo '<div class="form-group">';
-            echo '<label for="inputFechaConstruccion">Fecha de Construcción</label>';
-            echo '<input type="date" class="form-control" name="inputFechaConstruccion" required>';
-            echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputUsuario">Encargado de Zona</label>';
             echo '<input type="text" class="form-control" name="inputUsuario" placeholder="Encargado de Zona" required>';
             echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectZonaGeografica">Zona Geográfica</label>';
-			echo '<select class="form-control" id="selectZonaGeografica" name="selectZonaGeografica" required>';
-			$this->MostrarSelector('zona_geografica');
-			echo '</select>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="selectDepartamento">Departamento</label>';
-			echo '<select class="form-control" id="selectDepartamento" name="selectDepartamento" required>';
-			$this->MostrarSelector('departamento');
+			echo '<label for="selectArea">Área</label>';
+			echo '<select class="form-control" id="selectArea" name="selectArea" required>';
+			$this->MostrarSelector('area');
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="inputDireccion">Dirección</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputDireccion" name="inputDireccion" placeholder="Dirección"></textarea>';
+			echo '<textarea rows="2" cols="50" class="form-control" id="inputDireccion" name="inputDireccion" placeholder="Dirección"></textarea>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="inputDueñoSitio">Dueño del Sitio</label>';
 			echo '<input type="text" class="form-control" id="inputDueñoSitio" name="inputDueñoSitio" placeholder="Dueño del Sitio"/>';
 			echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectEstadoContrato">Estado del Contrato</label>';
-			echo '<select class="form-control" id="selectEstadoContrato" name="selectEstadoContrato" required>';
-			$this->MostrarSelector('estado_contrato');
+			echo '<label for="selectTipoCobertura">Tipo de Cobertura</label>';
+			echo '<select class="form-control" id="selectTipoCobertura" name="selectTipoCobertura" required>';
+			$this->MostrarSelector('tipo_cobertura');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputRestriccionAcceso">Restricción de Acceso</label>';
+            echo '<input type="text" class="form-control" name="inputRestriccionAcceso" placeholder="Restricción de Acceso" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputAltura">Altura (M)</label>';
+            echo '<input type="number" class="form-control" name="inputAltura" min="0" placeholder="Altura (M)" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoMaterialShelter">Tipo de Material Shelter</label>';
+			echo '<select class="form-control" id="selectTipoMaterialShelter" name="selectTipoMaterialShelter" required>';
+			$this->MostrarSelector('tipo_material_shelter');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="inputComConElectrica">Comentarios de Conexión Eléctrica</label>';
+			echo '<textarea rows="2" cols="50" class="form-control" id="inputComConElectrica" name="inputComConElectrica" placeholder="Comentarios de Conexión Eléctrica"></textarea>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectLineaElectrica">Línea Eléctrica</label>';
+			echo '<select class="form-control" id="selectLineaElectrica" name="selectLineaElectrica" required>';
+			$this->MostrarSelector('tipo_linea_electrica');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputModeloGenset">Modelo de Genset</label>';
+            echo '<input type="text" class="form-control" name="inputModeloGenset" placeholder="Modelo de Genset" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectEstadoGenerador">Estado de Generador</label>';
+			echo '<select class="form-control" id="selectEstadoGenerador" name="selectEstadoGenerador" required>';
+			$this->MostrarSelector('estado_generador');
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputEstadoATS">Estado de ATS</label>';
+            echo '<input type="text" class="form-control" name="inputEstadoATS" placeholder="Estado de ATS" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputLTENemonico">LTE Nemonico</label>';
+            echo '<input type="text" class="form-control" name="inputLTENemonico" placeholder="LTE Nemonico" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputUMTSLaunchDate">UMTS Launch Date</label>';
+            echo '<input type="date" class="form-control" name="inputUMTSLaunchDate" required>';
+            echo '</div>';
+			echo '</div>';
+			//Termina Primer Columna
+
+            //Inicia Segunda Columna
+            echo '<div class="col-lg-4">';
+            echo '<div class="form-group">';
+            echo '<label for="inputNombre">Nombre</label>';
+            echo '<input type="text" class="form-control" name="inputNombre" placeholder="Nombre" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputFechaConstruccion">Fecha de Construcción</label>';
+            echo '<input type="date" class="form-control" name="inputFechaConstruccion" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectZona">Zona</label>';
+			echo '<select class="form-control" id="selectZona" name="selectZona" required>';
+			$this->MostrarSelector('zona');
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectDepartamento">Departamento</label>';
+			echo '<select class="form-control" id="selectDepartamento" name="selectDepartamento" required>';
+			$this->MostrarDepartamento();
+			echo '</select>';
+			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputLatitud">Latitud</label>';
+            echo '<input type="number" class="form-control" name="inputLatitud" step="0.000001" placeholder="Latitud" required>';
+            echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectTipoCuenta">Tipo de Cuenta</label>';
+			echo '<select class="form-control" id="selectTipoCuenta" name="selectTipoCuenta" required>';
+			$this->MostrarSelector('tipo_cuenta');
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputFormaAcceso">Forma de Acceso</label>';
             echo '<input type="text" class="form-control" name="inputFormaAcceso" placeholder="Forma de Acceso" required>';
             echo '</div>';
-            echo '<div class="form-group">';
-            echo '<label for="inputRestriccionAcceso">Restricción de Acceso</label>';
-            echo '<input type="text" class="form-control" name="inputRestriccionAcceso" placeholder="Restricción de Acceso" required>';
-            echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectTipoEstructura">Tipo de Estructura</label>';
-			echo '<select class="form-control" id="selectTipoEstructura" name="selectTipoEstructura" required>';
-			$this->MostrarSelector('tipo_estructura');
+			echo '<label for="selectPeligrosidad">Nivel de Peligrosidad</label>';
+			echo '<select class="form-control" id="selectPeligrosidad" name="selectPeligrosidad" required>';
+			$this->MostrarSelector('peligrosidad');
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectTipoHierro">Tipo de Hierro</label>';
 			echo '<select class="form-control" id="selectTipoHierro" name="selectTipoHierro" required>';
+			$this->MostrarSelector('tipo_hierro');
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectTipoMaterialShelter">Tipo de Material Shelter</label>';
-			echo '<select class="form-control" id="selectTipoMaterialShelter" name="selectTipoMaterialShelter" required>';
+			echo '<label for="selectOperadoresCoub">Operadores Coubicados</label>';
+			echo '<select class="form-control" multiple="multiple" size="3" id="selectOperadoresCoub" name="selectOperadoresCoub" required>';
+			$this->MostrarSelector('multi_comp_operadora');
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="inputNIC">NIC</label>';
-            echo '<input type="text" class="form-control" name="inputNIC" placeholder="NIC" required>';
+			echo '<label for="selectCompElectrica">Compañía Eléctrica</label>';
+			echo '<select class="form-control" id="selectCompElectrica" name="selectCompElectrica" required>';
+			$this->MostrarSelector('comp_electrica');
+			echo '</select>';
 			echo '</div>';
-            echo '</div>';
-            echo '<div class="col-lg-6">';
             echo '<div class="form-group">';
-            echo '<label for="inputNombre">Nombre</label>';
-            echo '<input type="text" class="form-control" name="inputNombre" placeholder="Nombre" required>';
+            echo '<label for="inputCapTransformador">Capacidad de Transformador (KVA)</label>';
+            echo '<input type="number" class="form-control" name="inputCapTransformador" min="1" step="0.01" placeholder="Capacidad de Transformador (KVA)" required>';
             echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputCapacidadGenset">Capacidad de Genset (KVA)</label>';
+            echo '<input type="number" class="form-control" name="inputCapacidadGenset" min="1" step="0.01" placeholder="Capacidad de Genset (KVA)" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputMarcaATS">Marca de ATS</label>';
+            echo '<input type="text" class="form-control" name="inputMarcaATS" placeholder="Marca de ATS" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputGSMNemonico">GSM Nemonico</label>';
+            echo '<input type="text" class="form-control" name="inputGSMNemonico" placeholder="GSM Nemonico" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputClusterName">Cluster Name</label>';
+            echo '<input type="text" class="form-control" name="inputClusterName" placeholder="Cluster Name" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputLTELaunchDate">LTE Launch Date</label>';
+            echo '<input type="date" class="form-control" name="inputLTELaunchDate" required>';
+            echo '</div>';
+			echo '</div>';
+            //Termina Segunda Columna
+
+			//Inicia Tercera Columna
+			echo '<div class="col-lg-4">';
 			echo '<div class="form-group">';
-			echo '<label for="selectCriticidad">Criticidad</label>';
-			echo '<select class="form-control" id="selectCriticidad" name="selectCriticidad" required>';
-			$this->MostrarSelector('criticidad');
+			echo '<label for="selectEstado">Estado</label>';
+			echo '<select class="form-control" id="selectEstado" name="selectEstado" required>';
+			$this->MostrarSelector('estado');
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
@@ -185,40 +280,25 @@
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectZona">Zona</label>';
-			echo '<select class="form-control" id="selectZona" name="selectZona" required>';
-			$this->MostrarSelector('zona');
-			echo '</select>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="selectArea">Área</label>';
-			echo '<select class="form-control" id="selectArea" name="selectArea" required>';
-			$this->MostrarSelector('area');
+			echo '<label for="selectZonaGeografica">Zona Geográfica</label>';
+			echo '<select class="form-control" id="selectZonaGeografica" name="selectZonaGeografica" required>';
+			$this->MostrarSelector('zona_geografica');
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectMunicipio">Municipio</label>';
-			echo '<select class="form-control" id="selectMunicipio" name="selectMunicipio" required>';
+			echo '<select class="form-control" id="selectMunicipio" name="selectMunicipio" required disabled>';
+			echo '<option value="">Seleccionar...</option>';
 			echo '</select>';
 			echo '</div>';
-            echo '<div class="form-group">';
-            echo '<label for="inputLatitud">Latitud</label>';
-            echo '<input type="number" class="form-control" name="inputLatitud" step="0.000001" placeholder="Latitud" required>';
-            echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputLongitud">Longitud</label>';
             echo '<input type="number" class="form-control" name="inputLongitud" step="0.000001" placeholder="Longitud" required>';
             echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectTipoCuenta">Tipo de Cuenta</label>';
-			echo '<select class="form-control" id="selectTipoCuenta" name="selectTipoCuenta" required>';
-			$this->MostrarSelector('tipo_cuenta');
-			echo '</select>';
-			echo '</div>';
-			echo '<div class="form-group">';
-			echo '<label for="selectTipoCobertura">Tipo de Cobertura</label>';
-			echo '<select class="form-control" id="selectTipoCobertura" name="selectTipoCobertura" required>';
-			$this->MostrarSelector('tipo_cobertura');
+			echo '<label for="selectEstadoContrato">Estado del Contrato</label>';
+			echo '<select class="form-control" id="selectEstadoContrato" name="selectEstadoContrato" required>';
+			$this->MostrarSelector('estado_contrato');
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
@@ -226,28 +306,47 @@
             echo '<input type="text" class="form-control" name="inputContactoAcceso" placeholder="Contacto de Acceso" required>';
             echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="selectPeligrosidad">Nivel de Peligrosidad</label>';
-			echo '<select class="form-control" id="selectPeligrosidad" name="selectPeligrosidad" required>';
-			$this->MostrarSelector('peligrosidad');
+			echo '<label for="selectTipoEstructura">Tipo de Estructura</label>';
+			echo '<select class="form-control" id="selectTipoEstructura" name="selectTipoEstructura" required>';
+			$this->MostrarSelector('tipo_estructura');
 			echo '</select>';
 			echo '</div>';
-            echo '<div class="form-group">';
-            echo '<label for="inputAltura">Altura (M)</label>';
-            echo '<input type="number" class="form-control" name="inputAltura" min="0" placeholder="Altura (M)" required>';
-            echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectTipoMuroPerimetral">Tipo de Muro Perimetral</label>';
 			echo '<select class="form-control" id="selectTipoMuroPerimetral" name="selectTipoMuroPerimetral" required>';
+			$this->MostrarSelector('tipo_muro_perimetral');
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label>Operadores Coubicados</label>';
+			echo '<label for="inputNIC">NIC</label>';
+            echo '<input type="number" class="form-control" name="inputNIC" placeholder="NIC" min="1" required>';
 			echo '</div>';
 			echo '<div class="form-group">';
-			echo '<label for="inputComConElectrica">Dirección</label>';
-			echo '<textarea rows="4" cols="50" class="form-control" id="inputComConElectrica" name="inputComConElectrica" placeholder="Comentarios de Conexión Eléctrica"></textarea>';
+			echo '<label for="inputMedidorEnergia">Medidor de Energía</label>';
+            echo '<input type="text" class="form-control" name="inputMedidorEnergia" placeholder="Medidor de Energía" required>';
 			echo '</div>';
-			echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputMarcaGenset">Marca de Genset</label>';
+            echo '<input type="text" class="form-control" name="inputMarcaGenset" placeholder="Marca de Genset" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputCapacidadTanque">Capacidad de Tanque (Galones)</label>';
+            echo '<input type="number" class="form-control" name="inputCapacidadTanque" placeholder="Capacidad de Tanque" min="1" step="0.01" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputCapacidadATS">Capacidad de ATS</label>';
+            echo '<input type="number" class="form-control" name="inputCapacidadATS" placeholder="Capacidad de ATS" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputUMTSNemonico">UMTS Nemonico</label>';
+            echo '<input type="text" class="form-control" name="inputUMTSNemonico" placeholder="UMTS Nemonico" required>';
+            echo '</div>';
+            echo '<div class="form-group">';
+            echo '<label for="inputGSMLaunchDate">GSM Launch Date</label>';
+            echo '<input type="date" class="form-control" name="inputGSMLaunchDate" required>';
+            echo '</div>';
+            echo '</div>';
+            //Termina Tercera Columna
 		}
 
 		function MostrarMatrizFOD() {
@@ -299,15 +398,47 @@
 			}
 		}
 
-		function MostrarSelector($tipo, $valor = '') {
+		function MostrarDepartamento($valor = '') {
 			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pSeleccionarOpciones('". $tipo . "')");
+			$ret = $oOBC->PDODBConnection("CALL pDepartamento()");
 
 			foreach ($ret as $row) {
-				if (strcmp($row["Nombre"], $valor) == 0) {
-					echo '<option value="' . $row["Valor"] . '" selected>' . $row["Nombre"] . '</option>';
+				if (strcmp($row["nombre"], $valor) == 0) {
+					echo '<option value="' . $row["id"] . '" selected>' . $row["nombre"] . '</option>';
 				} else {
-					echo '<option value="' . $row["Valor"] . '">' . $row["Nombre"] . '</option>';
+					echo '<option value="' . $row["id"] . '">' . $row["nombre"] . '</option>';
+				}
+			}
+		}
+
+		function MostrarSelector($tipo, $valor = '') {
+			$oOBC = new OBC;
+			$multi = false;
+			if (strpos($tipo, 'multi_') !== false) {
+				$tipo = str_replace("multi_", "", $tipo);
+				$multi = true;
+			}
+
+			$tipo = $oOBC->DBQuote($tipo);
+			$ret = $oOBC->PDODBConnection("CALL pSOCatalogo(". $tipo . ")");
+
+			if ($multi) {
+				foreach ($ret as $row) {
+	    			if (strcmp($row["Valor"], 'Seleccionar...') == 0) {
+						continue;
+					} else {
+						echo '<option value="' . $row["Valor"] . '">' . $row["Valor"] . '</option>';
+					}
+				}
+			} else {
+				foreach ($ret as $row) {
+					if (strcmp($row["Valor"], 'Seleccionar...') == 0) {
+						echo '<option value="" selected>' . $row["Valor"] . '</option>';
+					} elseif (strcmp($row["Valor"], $valor) == 0) {
+						echo '<option value="' . $row["Valor"] . '" selected>' . $row["Valor"] . '</option>';
+					} else {
+						echo '<option value="' . $row["Valor"] . '">' . $row["Valor"] . '</option>';
+					}
 				}
 			}
 		}
@@ -458,110 +589,7 @@
 			}
 		}
 
-		function FrmMttoN($cat) {
-			//Inicializar Variables
-			$oOBC = new OBC;
-			$idCatVal = '';
-			$nombreCatVal = '';
-			$activoCatVal = '';
-			$cat = $oOBC->DBQuote($cat);
-
-			//Validacion de Acciones
-			if ($_POST) {
-				if ($_POST['idCat']) {
-					$idCat = $_POST['idCat'];
-				} else {
-					$idCat = 0;
-				}
-				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
-				$activo = $_POST['checkboxActivo'];
-
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoN(" . $cat . "," . $idCat . "," . $nombre . "," . $activo . ")");
-			} elseif ($_GET) {
-				$action = base64_decode(urldecode($_GET["fa"]));
-				$idCat = base64_decode(urldecode($_GET["fid"]));
-				if (strcmp($action, 'editrecord') == 0) {
-					
-					$idCatVal = 'value="' . $idCat . '"';
-					$infoCat = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo(" . $cat . "," . $idCat . ")");
-					foreach ($infoCat as $row) {
-						$nombreCatVal = 'value="' . $row["nombre"] . '"';
-						if ($row["activo"]) {
-							$activoCatVal = 'checked';
-						}
-					}
-
-				}
-			}
-			echo '<input type="hidden" id="idCat" name="idCat" ' . $idCatVal . '/>';
-			echo '<div class="form-group">';
-			echo '<label for="inputNombre">Nombre</label>';
-			echo '<input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" ' . $nombreCatVal . ' required>';
-			echo '</div>';
-			echo '<div class="checkbox">';
-			echo '<label>';
-			echo '<input type="hidden" name="checkboxActivo" value="0" />';
-			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoCatVal . ' value="1"/> Activo';
-			echo '</label>';
-			echo '</div>';
-		}
-
-		function MostrarMatrizN($cat, $redir) {
-			$oOBC = new OBC;
-			$cat = $oOBC->DBQuote($cat);
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo(" . $cat . ")");
-
-			$fa = urlencode(base64_encode("editrecord"));
-
-			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="' . $redir . '?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
-			}
-		}
-
-		function CargaMasivaN($cat) {
-			if (isset($_FILES['fileTemp'])) {
-				if ($_FILES['fileTemp']['tmp_name']) {
-					if (!$_FILES['fileTemp']['error']) {
-
-					    $inputFile = $_FILES['fileTemp']['tmp_name'];
-
-					    $targetdir = 'Up/' . basename($_FILES["fileTemp"]["name"]);
-						move_uploaded_file($_FILES['fileTemp']['tmp_name'], $targetdir);
-					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
-
-					    if ($extension == "XLS") {
-							$excel = new PhpExcelReader;
-							$excel->read($targetdir);
-
-							$oOBC = new OBC;
-							$cat = $oOBC->DBQuote($cat);
-							//Saltar la primer fila del archivo
-							$x = 2;
-							while($x <= $excel->sheets[0]['numRows']) {
-								$y = 1;
-								while($y <= $excel->sheets[0]['numCols']) {
-								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? $excel->sheets[0]['cells'][$x][$y] : '';
-								  if ($y == 1) {
-								  	$nombre = $oOBC->DBQuote($cell);
-								  }
-								  $y++;
-								}
-								$x++;
-
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoN(" . $cat . ",0,". $nombre . ",1)");
-							}
-					    } else {
-					    	error_log("Template has to be XLS 97-2003");
-					    }
-					} else{
-					    error_log($_FILES['fileTemp']['error']);
-					}
-				}
-			}
-		}
-
-		function FrmMttoND($cat) {
+		function FrmMtto($cat) {
 			//Inicializar Variables
 			$oOBC = new OBC;
 			$idCatVal = '';
@@ -581,16 +609,16 @@
 				$descripcion = $oOBC->DBQuote($_POST['inputDescripcion']);
 				$activo = $_POST['checkboxActivo'];
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogoND(" . $cat . "," . $idCat . "," . $nombre . "," . $descripcion . "," . $activo . ")");
+				$resultado = $oOBC->PDODBConnection("CALL pMttoCatalogo(" . $cat . "," . $idCat . "," . $nombre . "," . $descripcion . "," . $activo . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
 				$idCat = base64_decode(urldecode($_GET["fid"]));
 				if (strcmp($action, 'editrecord') == 0) {
 					
 					$idCatVal = 'value="' . $idCat . '"';
-					$infoCat = $oOBC->PDODBConnection("CALL pObtenerInformacionCatalogo(" . $cat . "," . $idCat . ")");
+					$infoCat = $oOBC->PDODBConnection("CALL pOICatalogo(" . $cat . "," . $idCat . ")");
 					foreach ($infoCat as $row) {
-						$nombreCatVal = 'value="' . $row["nombre"] . '"';
+						$nombreCatVal = 'value="' . $row["valor"] . '"';
 						$descripcionCatVal = $row["descripcion"];
 						if ($row["activo"]) {
 							$activoCatVal = 'checked';
@@ -616,20 +644,20 @@
 			echo '</div>';
 		}
 
-		function MostrarMatrizND($cat, $redir) {
+		function MMCatalogo($cat, $redir) {
 			$oOBC = new OBC;
 			$cat = $oOBC->DBQuote($cat);
-			$ret = $oOBC->PDODBConnection("CALL pMostrarMatrizCatalogo(" . $cat . ")");
+			$ret = $oOBC->PDODBConnection("CALL pMMCatalogo(" . $cat . ")");
 
 			$fa = urlencode(base64_encode("editrecord"));
 
 			foreach ($ret as $row) {
 				$fid = urlencode(base64_encode($row["id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="' . $redir . '?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["nombre"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="' . $redir . '?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["valor"] . '</td> <td>' . $row["descripcion"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
 			}
 		}
 
-		function CargaMasivaND($cat) {
+		function CMCatalogo($cat) {
 			if (isset($_FILES['fileTemp'])) {
 				if ($_FILES['fileTemp']['tmp_name']) {
 					if (!$_FILES['fileTemp']['error']) {
@@ -661,7 +689,7 @@
 								}
 								$x++;
 
-								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogoND(" . $cat . ",0,". $nombre . "," . $descripcion . ",1)");
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoCatalogo(" . $cat . ",0,". $nombre . "," . $descripcion . ",1)");
 							}
 					    } else {
 					    	error_log("Template has to be XLS 97-2003");
