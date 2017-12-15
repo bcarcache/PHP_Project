@@ -52,6 +52,7 @@
         <div class="col-lg-12">
       <table class="table table-hover table-responsive">
         <thead> <tr> 
+          <th>ID</th>
           <th>TES</th>
           <th>Nombre</th> 
           <th>Estado</th> 

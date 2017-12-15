@@ -75,6 +75,7 @@
 
 		function FrmFOD3C() {
 			$oOBC = new OBC;
+			$idSiteVal = '';
 			$siteVal1 = $siteVal2 = $siteVal3 = $siteVal4 = $siteVal5 = $siteVal6 = $siteVal7 = $siteVal8 = $siteVal9 = $siteVal10 = '';
 			$siteVal11 = $siteVal12 = $siteVal13 = $siteVal14 = $siteVal15 = $siteVal16 = $siteVal17 = $siteVal18 = $siteVal19 = $siteVal20 = '';
 			$siteVal21 = $siteVal22 = $siteVal23 = $siteVal24 = $siteVal25 = $siteVal26 = $siteVal27 = $siteVal28 = $siteVal29 = $siteVal30 = '';
@@ -89,12 +90,13 @@
 
 			//Validacion de Acciones
 			if ($_POST) {
-				if ($_POST['tes_id']) {
-					$tes_id = $_POST['tes_id'];
+				if ($_POST['idSite']) {
+					$idSite = $_POST['idSite'];
 				} else {
-					$tes_id = 0;
+					$idSite = 0;
 				}
 
+				$tes_id = $oOBC->DBQuote($_POST['inputTesId']);
 				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
 				$estado = $oOBC->DBQuote($_POST['selectEstado']);
 				$criticidad = $oOBC->DBQuote($_POST['selectCriticidad']);
@@ -106,8 +108,17 @@
 				$departamento = $oOBC->DBQuote($_POST['selectDepartamento']);
 				$municipio = $oOBC->DBQuote($_POST['selectMunicipio']);
 				$direccion = $oOBC->DBQuote($_POST['inputDireccion']);
-				$latitud = $oOBC->DBQuote($_POST['inputLatitud']);
-				$longitud = $oOBC->DBQuote($_POST['inputLongitud']);
+				if (trim($_POST['inputLatitud']) == "") {
+					$latitud = "NULL";
+				} else {
+					$latitud = $_POST['inputLatitud'];
+				}
+
+				if (trim($_POST['inputLatitud']) == "") {
+					$longitud = "NULL";
+				} else {
+					$longitud = $_POST['inputLongitud'];
+				}
 				$dueñoSitio = $oOBC->DBQuote($_POST['inputDueñoSitio']);
 				$tipoCuenta = $oOBC->DBQuote($_POST['selectTipoCuenta']);
 				$estadoContrato = $oOBC->DBQuote($_POST['selectEstadoContrato']);
@@ -117,20 +128,41 @@
 				$restriccionAcceso = $oOBC->DBQuote($_POST['inputRestriccionAcceso']);
 				$peligrosidad = $oOBC->DBQuote($_POST['selectPeligrosidad']);
 				$tipoEstructura = $oOBC->DBQuote($_POST['selectTipoEstructura']);
-				$altura = $oOBC->DBQuote($_POST['inputAltura']);
+				if (trim($_POST['inputAltura']) == "") {
+					$altura = "NULL";
+				} else {
+					$altura = $_POST['inputAltura'];
+				}
 				$tipoHierro = $oOBC->DBQuote($_POST['selectTipoHierro']);
 				$tipoMuroPerimetral = $oOBC->DBQuote($_POST['selectTipoMuroPerimetral']);
 				$tipoMaterialShelter = $oOBC->DBQuote($_POST['selectTipoMaterialShelter']);
-				$NIC = $oOBC->DBQuote($_POST['inputNIC']);
+				if (trim($_POST['inputNIC']) == "") {
+					$NIC = "NULL";
+				} else {
+					$NIC = $_POST['inputNIC'];
+				}
 				$comConElectrica = $oOBC->DBQuote($_POST['inputComConElectrica']);
 				$compElectrica = $oOBC->DBQuote($_POST['selectCompElectrica']);
 				$medidorEnergia = $oOBC->DBQuote($_POST['inputMedidorEnergia']);
 				$lineaElectrica = $oOBC->DBQuote($_POST['selectLineaElectrica']);
-				$capTransformador = $oOBC->DBQuote($_POST['inputCapTransformador']);
+				if (trim($_POST['inputCapTransformador']) == "") {
+					$capTransformador = "NULL";
+				} else {
+					$capTransformador = $_POST['inputCapTransformador'];
+				}
 				$marcaGenset = $oOBC->DBQuote($_POST['inputMarcaGenset']);
 				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$capacidadGenset = $oOBC->DBQuote($_POST['inputCapacidadGenset']);
-				$capacidadTanque = $oOBC->DBQuote($_POST['inputCapacidadTanque']);
+				if (trim($_POST['inputCapacidadGenset']) == "") {
+					$capacidadGenset = "NULL";
+				} else {
+					$capacidadGenset = $_POST['inputCapacidadGenset'];
+				}
+
+				if (trim($_POST['inputCapacidadTanque']) == "") {
+					$capacidadTanque = "NULL";
+				} else {
+					$capacidadTanque = $_POST['inputCapacidadTanque'];
+				}
 				$estadoGenerador = $oOBC->DBQuote($_POST['selectEstadoGenerador']);
 				$marcaATS = $oOBC->DBQuote($_POST['inputMarcaATS']);
 				$capacidadATS = $oOBC->DBQuote($_POST['inputCapacidadATS']);
@@ -139,111 +171,140 @@
 				$UMTSNemonico = $oOBC->DBQuote($_POST['inputUMTSNemonico']);
 				$LTENemonico = $oOBC->DBQuote($_POST['inputLTENemonico']);
 				$clusterName = $oOBC->DBQuote($_POST['inputClusterName']);
-				$GSMLaunchDate = $oOBC->DBQuote($_POST['inputGSMLaunchDate']);
-				$UMTSLaunchDate = $oOBC->DBQuote($_POST['inputUMTSLaunchDate']);
-				$LTELaunchDate = $oOBC->DBQuote($_POST['inputLTELaunchDate']);
+				if (trim($_POST['inputGSMLaunchDate']) == "") {
+					$GSMLaunchDate = "NULL";
+				} else {
+					$GSMLaunchDate = $oOBC->DBQuote($_POST['inputGSMLaunchDate']);
+				}
+				if (trim($_POST['inputUMTSLaunchDate']) == "") {
+					$UMTSLaunchDate = "NULL";
+				} else {
+					$UMTSLaunchDate = $oOBC->DBQuote($_POST['inputUMTSLaunchDate']);
+				}
+				if (trim($_POST['inputLTELaunchDate']) == "") {
+					$LTELaunchDate = "NULL";
+				} else {
+					$LTELaunchDate = $oOBC->DBQuote($_POST['inputLTELaunchDate']);
+				}
+				
 				$UMTSC1 = $oOBC->DBQuote($_POST['selectUMTSC1']);
 				$UMTSC2 = $oOBC->DBQuote($_POST['selectUMTSC2']);
 				$UMTSC3 = $oOBC->DBQuote($_POST['selectUMTSC3']);
 				$LTECells = $oOBC->DBQuote($_POST['selectLTECells']);
-				$RRUSSite = $oOBC->DBQuote($_POST['inputRRUSSite']);
-				$antenasSite = $oOBC->DBQuote($_POST['inputAntenasSite']);
-				$2GTXType = $oOBC->DBQuote($_POST['select2GTXType']);
-				$2GTXMarca = $oOBC->DBQuote($_POST['input2GTXMarca']);
-				$3GTXType = $oOBC->DBQuote($_POST['select3GTXType']);
-				$3GTXMarca = $oOBC->DBQuote($_POST['input3GTXMarca']);
-				$4GTXType = $oOBC->DBQuote($_POST['select4GTXType']);
-				$4GTXMarca = $oOBC->DBQuote($_POST['input4GTXMarca']);
+				if (trim($_POST['inputRRUSSite']) == "") {
+					$RRUSSite = "NULL";
+				} else {
+					$RRUSSite = $_POST['inputRRUSSite'];
+				}
+				if (trim($_POST['inputAntenasSite']) == "") {
+					$antenasSite = "NULL";
+				} else {
+					$antenasSite = $_POST['inputAntenasSite'];
+				}
+				$GTXType2 = $oOBC->DBQuote($_POST['select2GTXType']);
+				$GTXMarca2 = $oOBC->DBQuote($_POST['input2GTXMarca']);
+				$GTXType3 = $oOBC->DBQuote($_POST['select3GTXType']);
+				$GTXMarca3 = $oOBC->DBQuote($_POST['input3GTXMarca']);
+				$GTXType4 = $oOBC->DBQuote($_POST['select4GTXType']);
+				$GTXMarca4 = $oOBC->DBQuote($_POST['input4GTXMarca']);
 				$modeloGabinete1 = $oOBC->DBQuote($_POST['selectModeloGabinete1']);
 				$rectTypeCab1 = $oOBC->DBQuote($_POST['selectRectTypeCab1']);
 				$marcaBateriasCab1 = $oOBC->DBQuote($_POST['inputMarcaBateriasCab1']);
-				$numBateriasCab1 = $oOBC->DBQuote($_POST['inputNumBateriasCab1']);
+				if (trim($_POST['inputNumBateriasCab1']) == "") {
+					$numBateriasCab1 = "NULL";
+				} else {
+					$numBateriasCab1 = $_POST['inputNumBateriasCab1'];
+				}
 				$autGabinete1 = $oOBC->DBQuote($_POST['inputAutGabinete1']);
 				$modeloGabinete2 = $oOBC->DBQuote($_POST['selectModeloGabinete2']);
 				$rectTypeCab2 = $oOBC->DBQuote($_POST['selectRectTypeCab2']);
 				$marcaBateriasCab2 = $oOBC->DBQuote($_POST['inputMarcaBateriasCab2']);
-				$numBateriasCab2 = $oOBC->DBQuote($_POST['inputNumBateriasCab2']);
+				if (trim($_POST['inputNumBateriasCab2']) == "") {
+					$numBateriasCab2 = "NULL";
+				} else {
+					$numBateriasCab2 = $_POST['inputNumBateriasCab2'];
+				}
 				$autGabinete2 = $oOBC->DBQuote($_POST['inputAutGabinete2']);
 				$modeloGabinete3 = $oOBC->DBQuote($_POST['selectModeloGabinete3']);
 				$rectTypeCab3 = $oOBC->DBQuote($_POST['selectRectTypeCab3']);
 				$marcaBateriasCab3 = $oOBC->DBQuote($_POST['inputMarcaBateriasCab3']);
-				$numBateriasCab3 = $oOBC->DBQuote($_POST['inputNumBateriasCab3']);
+				if (trim($_POST['inputNumBateriasCab3']) == "") {
+					$numBateriasCab3 = "NULL";
+				} else {
+					$numBateriasCab3 = $_POST['inputNumBateriasCab3'];
+				}
 				$autGabinete3 = $oOBC->DBQuote($_POST['inputAutGabinete3']);
 				$minishelter1 = $oOBC->DBQuote($_POST['inputMinishelter1']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
-				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$rectTypeMin1 = $oOBC->DBQuote($_POST['selectRectTypeMin1']);
+				$marcaBateriasMin1 = $oOBC->DBQuote($_POST['inputMarcaBateriasMin1']);
+				if (trim($_POST['inputNumBateriasMin1']) == "") {
+					$numBateriasMin1 = "NULL";
+				} else {
+					$numBateriasMin1 = $_POST['inputNumBateriasMin1'];
+				}
+				$autMinishelter1 = $oOBC->DBQuote($_POST['inputAutMinishelter1']);
+				$minishelter2 = $oOBC->DBQuote($_POST['inputMinishelter2']);
+				$rectTypeMin2 = $oOBC->DBQuote($_POST['selectRectTypeMin2']);
+				$marcaBateriasMin2 = $oOBC->DBQuote($_POST['inputMarcaBateriasMin2']);
+				$marcaBateriasMin1 = $oOBC->DBQuote($_POST['inputMarcaBateriasMin1']);
+				if (trim($_POST['inputNumBateriasMin2']) == "") {
+					$numBateriasMin2 = "NULL";
+				} else {
+					$numBateriasMin2 = $_POST['inputNumBateriasMin2'];
+				}
+				$autMinishelter = $oOBC->DBQuote($_POST['inputAutMinishelter2']);
+				$modeloGabineteE1 = $oOBC->DBQuote($_POST['selectModeloGabineteE1']);
+				$modeloGabineteE2 = $oOBC->DBQuote($_POST['selectModeloGabineteE2']);
+				$marcaFuerza1 = $oOBC->DBQuote($_POST['inputMarcaFuerza1']);
+				$modeloFuerza1 = $oOBC->DBQuote($_POST['inputModeloFuerza1']);
+				if (trim($_POST['inputVoltageSalidaF1']) == "") {
+					$voltageSalidaF1 = "NULL";
+				} else {
+					$voltageSalidaF1 = $_POST['inputVoltageSalidaF1'];
+				}
+				$marcaBateriasF1 = $oOBC->DBQuote($_POST['inputMarcaBateriasF1']);
+				if (trim($_POST['inputNumeroBateriasF1']) == "") {
+					$numeroBateriasF1 = "NULL";
+				} else {
+					$numeroBateriasF1 = $_POST['inputNumeroBateriasF1'];
+				}
+				if (trim($_POST['inputCapacidadAHF1']) == "") {
+					$capacidadAHF1 = "NULL";
+				} else {
+					$capacidadAHF1 = $_POST['inputCapacidadAHF1'];
+				}
+				$marcaFuerza2 = $oOBC->DBQuote($_POST['inputMarcaFuerza2']);
+				$modeloFuerza2 = $oOBC->DBQuote($_POST['inputModeloFuerza2']);
+				if (trim($_POST['inputVoltageSalidaF2']) == "") {
+					$voltageSalidaF2 = "NULL";
+				} else {
+					$voltageSalidaF2 = $_POST['inputVoltageSalidaF2'];
+				}
+				$marcaBateriasF2 = $oOBC->DBQuote($_POST['inputMarcaBateriasF2']);
+				if (trim($_POST['inputNumeroBateriasF2']) == "") {
+					$numeroBateriasF2 = "NULL";
+				} else {
+					$numeroBateriasF2 = $_POST['inputNumeroBateriasF2'];
+				}
+				if (trim($_POST['inputCapacidadAHF2']) == "") {
+					$capacidadAHF2 = "NULL";
+				} else {
+					$capacidadAHF2 = $_POST['inputCapacidadAHF2'];
+				}
+				$dbUsuario = $oOBC->DBQuote($_SESSION["usuario"]);
 
-				$resultado = $oOBC->PDODBConnection("CALL pMttoUsuario(" . $idUsuario . "," . $idPerfil . "," . $nombres . "," . $apellidos . "," . $telefono . "," . $usuario . "," . $password . "," . $activo . ")");
-			} elseif ($_GET) {
+				error_log("CALL pMttoFOD(" . $idSite . "," . $tes_id . "," . $nombre . "," . $estado . "," . $criticidad . "," . $fechaConstruccion . "," . $tipificacion . "," . $zona . "," . $zonaGeografica . "," . $area . "," . $departamento . "," . $municipio . "," . $direccion . "," . $latitud . "," . $longitud . "," . $dueñoSitio . "," . $tipoCuenta . "," . $estadoContrato . "," . $tipoCobertura . "," . $formaAcceso  . "," . $contactoAcceso . "," . $restriccionAcceso . "," . $peligrosidad . "," . $tipoEstructura  . "," . $altura . "," . $tipoHierro . "," . $tipoMuroPerimetral . "," . $tipoMaterialShelter . "," . $NIC . "," . $comConElectrica . "," . $compElectrica . "," . $medidorEnergia . "," . $lineaElectrica . "," . $capTransformador . "," . $marcaGenset . "," . $modeloGenset . "," . $capacidadGenset . "," . $capacidadTanque . "," . $estadoGenerador . "," . $marcaATS . "," . $capacidadATS . "," . $estadoATS . "," . $GSMNemonico . "," . $UMTSNemonico . "," . $LTENemonico . "," . $clusterName . "," . $GSMLaunchDate . "," . $UMTSLaunchDate . "," . $LTELaunchDate . "," . $UMTSC1 . "," . $UMTSC2 . "," . $UMTSC3 . "," . $LTECells . "," . $RRUSSite . "," . $antenasSite . "," . $GTXType2 . "," . $GTXMarca2 . "," . $GTXType3 . "," . $GTXMarca3 . "," . $GTXType4 . "," . $GTXMarca4 . "," . $modeloGabinete1 . "," . $rectTypeCab1 . "," . $marcaBateriasCab1 . "," . $numBateriasCab1 . "," . $autGabinete1 . "," . $modeloGabinete2 . "," . $rectTypeCab2 . "," . $marcaBateriasCab2 . "," . $numBateriasCab2 . "," . $autGabinete2 . "," . $modeloGabinete3 . "," . $rectTypeCab3 . "," . $marcaBateriasCab3 . "," . $numBateriasCab3 . "," . $autGabinete3 . "," . $minishelter1 . "," . $rectTypeMin1 . "," . $marcaBateriasMin1 . "," . $numBateriasMin1 . "," . $autMinishelter1 . "," . $minishelter2 . "," . $rectTypeMin2 . "," . $marcaBateriasMin2 . "," . $numBateriasMin2 . "," . $autMinishelter . "," . $modeloGabineteE1 . "," . $modeloGabineteE2 . "," . $marcaFuerza1 . "," . $modeloFuerza1 . "," . $voltageSalidaF1 . "," . $marcaBateriasF1 . "," . $numeroBateriasF1 . "," . $capacidadAHF1 . "," . $marcaFuerza2 . "," . $modeloFuerza2 . "," . $voltageSalidaF2 . "," . $marcaBateriasF2 . "," . $numeroBateriasF2 . "," . $capacidadAHF2 . "," . $dbUsuario . ")");
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
-				$tes_id = base64_decode(urldecode($_GET["fid"]));
+				$idSite = base64_decode(urldecode($_GET["fid"]));
 
 				if (strcmp($action, 'editrecord') == 0) {
 					//pOIFOD
-					$siteVal1 = 'value="' . $tes_id . '"';
-					$tes_id = $oOBC->DBQuote(base64_decode(urldecode($_GET["fid"])));
-					$infoFOD = $oOBC->PDODBConnection("CALL pOIFOD(" . $tes_id . ")");
+					$idSiteVal = 'value="' . $idSite . '"';
+					$idSite = $oOBC->DBQuote(base64_decode(urldecode($_GET["fid"])));
+					$infoFOD = $oOBC->PDODBConnection("CALL pOIFOD(" . $idSite . ")");
 					foreach ($infoFOD as $row) {
+						$siteVal1 = 'value="' . $row["tes_id"] . '"';
 						$siteVal2 = 'value="' . $row["nombre"] . '"';
 						$siteVal3 = $row["estado"];
 						$siteVal4 = $row["criticidad"];
@@ -350,7 +411,7 @@
 
 			//Inicia Primer Columna
 			echo '<div class="col-lg-4">';
-			echo '<input type="hidden" id="tes_id" name="tes_id" ' . $siteVal1 . '/>';
+			echo '<input type="hidden" id="idSite" name="idSite" ' . $idSiteVal . '/>';
             echo '<div class="form-group">';
             echo '<label for="inputTesId">TES ID</label>';
             echo '<input type="text" class="form-control" name="inputTesId" placeholder="TESID" ' . $siteVal1 . ' required>';
@@ -851,8 +912,9 @@
 			$fa = urlencode(base64_encode("editrecord"));
 
 			foreach ($ret as $row) {
-				$fid = urlencode(base64_encode($row["tes_id"]));
-				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="FOD.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["tes_id"] . '</a></th>';
+				$fid = urlencode(base64_encode($row["id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="FOD.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th>';
+				echo '<td>' . $row["tes_id"] . '</td>';
 				echo '<td>' . $row["nombre"] . '</td>';
 				echo '<td>' . $row["estado"] . '</td>';
 				echo '<td>' . $row["criticidad"] . '</td>';
@@ -1331,7 +1393,7 @@
 			$ret = $oOBC->PDODBConnection("CALL pDepartamento()");
 
 			foreach ($ret as $row) {
-				if (strcmp($row["nombre"], $valor) == 0) {
+				if (strpos($row, $valor) !== false) {
 					echo '<option value="' . $row["id"] . '" selected>' . $row["nombre"] . '</option>';
 				} else {
 					echo '<option value="' . $row["id"] . '">' . $row["nombre"] . '</option>';
@@ -1352,7 +1414,7 @@
 
 			if ($multi) {
 				foreach ($ret as $row) {
-	    			if (strcmp($row["Valor"], 'Seleccionar...') == 0) {
+	    			if (strpos($row, $valor) !== false) {
 						continue;
 					} else {
 						echo '<option value="' . $row["Valor"] . '">' . $row["Valor"] . '</option>';
@@ -1360,9 +1422,9 @@
 				}
 			} else {
 				foreach ($ret as $row) {
-					if (strcmp($row["Valor"], 'Seleccionar...') == 0) {
+					if (strcmp($row["Valor"], 'Seleccionar...') === 0) {
 						echo '<option value="" selected>' . $row["Valor"] . '</option>';
-					} elseif (strcmp($row["Valor"], $valor) == 0) {
+					} elseif (strpos($row, $valor) !== false) {
 						echo '<option value="' . $row["Valor"] . '" selected>' . $row["Valor"] . '</option>';
 					} else {
 						echo '<option value="' . $row["Valor"] . '">' . $row["Valor"] . '</option>';
