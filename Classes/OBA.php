@@ -89,181 +89,427 @@
 
 			//Validacion de Acciones
 			if ($_POST) {
-				if ($_POST['idSite']) {
-					$idSite = $_POST['idSite'];
+				if ($_POST['tes_id']) {
+					$tes_id = $_POST['tes_id'];
 				} else {
-					$idSite = 0;
+					$tes_id = 0;
 				}
+
+				$nombre = $oOBC->DBQuote($_POST['inputNombre']);
+				$estado = $oOBC->DBQuote($_POST['selectEstado']);
+				$criticidad = $oOBC->DBQuote($_POST['selectCriticidad']);
+				$fechaConstruccion = $oOBC->DBQuote($_POST['inputFechaConstruccion']);
+				$tipificacion = $oOBC->DBQuote($_POST['selectTipificacion']);
+				$zona = $oOBC->DBQuote($_POST['selectZona']);
+				$zonaGeografica = $oOBC->DBQuote($_POST['selectZonaGeografica']);
+				$area = $oOBC->DBQuote($_POST['selectArea']);
+				$departamento = $oOBC->DBQuote($_POST['selectDepartamento']);
+				$municipio = $oOBC->DBQuote($_POST['selectMunicipio']);
+				$direccion = $oOBC->DBQuote($_POST['inputDireccion']);
+				$latitud = $oOBC->DBQuote($_POST['inputLatitud']);
+				$longitud = $oOBC->DBQuote($_POST['inputLongitud']);
+				$dueñoSitio = $oOBC->DBQuote($_POST['inputDueñoSitio']);
+				$tipoCuenta = $oOBC->DBQuote($_POST['selectTipoCuenta']);
+				$estadoContrato = $oOBC->DBQuote($_POST['selectEstadoContrato']);
+				$tipoCobertura = $oOBC->DBQuote($_POST['selectTipoCobertura']);
+				$formaAcceso = $oOBC->DBQuote($_POST['inputFormaAcceso']);
+				$contactoAcceso = $oOBC->DBQuote($_POST['inputContactoAcceso']);
+				$restriccionAcceso = $oOBC->DBQuote($_POST['inputRestriccionAcceso']);
+				$peligrosidad = $oOBC->DBQuote($_POST['selectPeligrosidad']);
+				$tipoEstructura = $oOBC->DBQuote($_POST['selectTipoEstructura']);
+				$altura = $oOBC->DBQuote($_POST['inputAltura']);
+				$tipoHierro = $oOBC->DBQuote($_POST['selectTipoHierro']);
+				$tipoMuroPerimetral = $oOBC->DBQuote($_POST['selectTipoMuroPerimetral']);
+				$tipoMaterialShelter = $oOBC->DBQuote($_POST['selectTipoMaterialShelter']);
+				$NIC = $oOBC->DBQuote($_POST['inputNIC']);
+				$comConElectrica = $oOBC->DBQuote($_POST['inputComConElectrica']);
+				$compElectrica = $oOBC->DBQuote($_POST['selectCompElectrica']);
+				$medidorEnergia = $oOBC->DBQuote($_POST['inputMedidorEnergia']);
+				$lineaElectrica = $oOBC->DBQuote($_POST['selectLineaElectrica']);
+				$capTransformador = $oOBC->DBQuote($_POST['inputCapTransformador']);
+				$marcaGenset = $oOBC->DBQuote($_POST['inputMarcaGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$capacidadGenset = $oOBC->DBQuote($_POST['inputCapacidadGenset']);
+				$capacidadTanque = $oOBC->DBQuote($_POST['inputCapacidadTanque']);
+				$estadoGenerador = $oOBC->DBQuote($_POST['selectEstadoGenerador']);
+				$marcaATS = $oOBC->DBQuote($_POST['inputMarcaATS']);
+				$capacidadATS = $oOBC->DBQuote($_POST['inputCapacidadATS']);
+				$estadoATS = $oOBC->DBQuote($_POST['inputEstadoATS']);
+				$GSMNemonico = $oOBC->DBQuote($_POST['inputGSMNemonico']);
+				$UMTSNemonico = $oOBC->DBQuote($_POST['inputUMTSNemonico']);
+				$LTENemonico = $oOBC->DBQuote($_POST['inputLTENemonico']);
+				$clusterName = $oOBC->DBQuote($_POST['inputClusterName']);
+				$GSMLaunchDate = $oOBC->DBQuote($_POST['inputGSMLaunchDate']);
+				$UMTSLaunchDate = $oOBC->DBQuote($_POST['inputUMTSLaunchDate']);
+				$LTELaunchDate = $oOBC->DBQuote($_POST['inputLTELaunchDate']);
+				$UMTSC1 = $oOBC->DBQuote($_POST['selectUMTSC1']);
+				$UMTSC2 = $oOBC->DBQuote($_POST['selectUMTSC2']);
+				$UMTSC3 = $oOBC->DBQuote($_POST['selectUMTSC3']);
+				$LTECells = $oOBC->DBQuote($_POST['selectLTECells']);
+				$RRUSSite = $oOBC->DBQuote($_POST['inputRRUSSite']);
+				$antenasSite = $oOBC->DBQuote($_POST['inputAntenasSite']);
+				$2GTXType = $oOBC->DBQuote($_POST['select2GTXType']);
+				$2GTXMarca = $oOBC->DBQuote($_POST['input2GTXMarca']);
+				$3GTXType = $oOBC->DBQuote($_POST['select3GTXType']);
+				$3GTXMarca = $oOBC->DBQuote($_POST['input3GTXMarca']);
+				$4GTXType = $oOBC->DBQuote($_POST['select4GTXType']);
+				$4GTXMarca = $oOBC->DBQuote($_POST['input4GTXMarca']);
+				$modeloGabinete1 = $oOBC->DBQuote($_POST['selectModeloGabinete1']);
+				$rectTypeCab1 = $oOBC->DBQuote($_POST['selectRectTypeCab1']);
+				$marcaBateriasCab1 = $oOBC->DBQuote($_POST['inputMarcaBateriasCab1']);
+				$numBateriasCab1 = $oOBC->DBQuote($_POST['inputNumBateriasCab1']);
+				$autGabinete1 = $oOBC->DBQuote($_POST['inputAutGabinete1']);
+				$modeloGabinete2 = $oOBC->DBQuote($_POST['selectModeloGabinete2']);
+				$rectTypeCab2 = $oOBC->DBQuote($_POST['selectRectTypeCab2']);
+				$marcaBateriasCab2 = $oOBC->DBQuote($_POST['inputMarcaBateriasCab2']);
+				$numBateriasCab2 = $oOBC->DBQuote($_POST['inputNumBateriasCab2']);
+				$autGabinete2 = $oOBC->DBQuote($_POST['inputAutGabinete2']);
+				$modeloGabinete3 = $oOBC->DBQuote($_POST['selectModeloGabinete3']);
+				$rectTypeCab3 = $oOBC->DBQuote($_POST['selectRectTypeCab3']);
+				$marcaBateriasCab3 = $oOBC->DBQuote($_POST['inputMarcaBateriasCab3']);
+				$numBateriasCab3 = $oOBC->DBQuote($_POST['inputNumBateriasCab3']);
+				$autGabinete3 = $oOBC->DBQuote($_POST['inputAutGabinete3']);
+				$minishelter1 = $oOBC->DBQuote($_POST['inputMinishelter1']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+				$modeloGenset = $oOBC->DBQuote($_POST['inputModeloGenset']);
+
+				$resultado = $oOBC->PDODBConnection("CALL pMttoUsuario(" . $idUsuario . "," . $idPerfil . "," . $nombres . "," . $apellidos . "," . $telefono . "," . $usuario . "," . $password . "," . $activo . ")");
+			} elseif ($_GET) {
 			} elseif ($_GET) {
 				$action = base64_decode(urldecode($_GET["fa"]));
-				$idSite = base64_decode(urldecode($_GET["fid"]));
+				$tes_id = base64_decode(urldecode($_GET["fid"]));
 
 				if (strcmp($action, 'editrecord') == 0) {
+					//pOIFOD
+					$siteVal1 = 'value="' . $tes_id . '"';
+					$tes_id = $oOBC->DBQuote(base64_decode(urldecode($_GET["fid"])));
+					$infoFOD = $oOBC->PDODBConnection("CALL pOIFOD(" . $tes_id . ")");
+					foreach ($infoFOD as $row) {
+						$siteVal2 = 'value="' . $row["nombre"] . '"';
+						$siteVal3 = $row["estado"];
+						$siteVal4 = $row["criticidad"];
+						$siteVal5 = 'value="' . $row["fecha_construccion"] . '"';
+						$siteVal6 = ["tipificacion"];
+						$siteVal7 = 'value="Encargado de Zona"';
+						$siteVal8 = ["zona"];
+						$siteVal9 = ["zona_geografica"];
+						$siteVal10 = ["area"];
+						$siteVal11 = ["departamento"];
+						$siteVal12 = ["municipio"];
+						$siteVal13 = $row["direccion"];
+						$siteVal14 = 'value="' . $row["latitud"] . '"';
+						$siteVal15 = 'value="' . $row["longitud"] . '"';
+						$siteVal16 = 'value="' . $row["dueño_sitio"] . '"';
+						$siteVal17 = $row["tipo_cuenta"];
+						$siteVal18 = $row["estado_contrato"];
+						$siteVal19 = $row["tipo_cobertura"];
+						$siteVal20 = 'value="' . $row["forma_acceso"] . '"';
+						$siteVal21 = 'value="' . $row["contacto_acceso"] . '"';
+						$siteVal22 = 'value="' . $row["restriccion_acceso"] . '"';
+						$siteVal23 = $row["peligrosidad"];
+						$siteVal24 = $row["tipo_estructura"];
+						$siteVal25 = 'value="' . $row["altura"] . '"';
+						$siteVal26 = $row["tipo_hierro"];
+						$siteVal27 = $row["tipo_muro_perimetral"];
+						$siteVal28 = 'value="' . $row["tipo_material_shelter"] . '"';
+						//$siteVal29 = 'value="' . $row["operadores_coubicados"] . '"';
+						$siteVal30 = 'value="' . $row["nic"] . '"';
+						$siteVal31 = $row["comentarios_conexion_electrica"];
+						$siteVal32 = $row["comp_electrica"];
+						$siteVal33 = $row["medidor_energia"];
+						$siteVal34 = $row["linea_electrica"];
+						$siteVal35 = 'value="' . $row["capacidad_transformador"] . '"';
+						$siteVal36 = 'value="' . $row["marca_genset"] . '"';
+						$siteVal37 = 'value="' . $row["modelo_genset"] . '"';
+						$siteVal38 = 'value="' . $row["capacidad_genset"] . '"';
+						$siteVal39 = 'value="' . $row["capacidad_tanque"] . '"';
+						$siteVal40 = $row["estado_generador"];
+						$siteVal41 = 'value="' . $row["marca_ats"] . '"';
+						$siteVal42 = 'value="' . $row["capacidad_ats"] . '"';
+						$siteVal43 = 'value="' . $row["estado_ats"] . '"';
+						$siteVal44 = 'value="' . $row["gsm_nemonico"] . '"';
+						$siteVal45 = 'value="' . $row["umts_nemonico"] . '"';
+						$siteVal46 = 'value="' . $row["lte_nemonico"] . '"';
+						$siteVal47 = 'value="' . $row["cluster_name"] . '"';
+						$siteVal48 = 'value="' . $row["gsm_launch"] . '"';
+						$siteVal49 = 'value="' . $row["umts_launch"] . '"';
+						$siteVal50 = 'value="' . $row["lte_launch"] . '"';
+						$siteVal51 = $row["umts_carrier1"];
+						$siteVal52 = $row["umts_carrier2"];
+						$siteVal53 = $row["umts_carrier3"];
+						$siteVal54 = $row["lte_cells"];
+						$siteVal55 = 'value="' . $row["rrus_site"] . '"';
+						$siteVal56 = 'value="' . $row["antenas_site"] . '"';
+						$siteVal57 = $row["2g_tx_type"];
+						$siteVal58 = 'value="' . $row["2g_tx_marca"] . '"';
+						$siteVal59 = $row["3g_tx_type"];
+						$siteVal60 = 'value="' . $row["3g_tx_marca"] . '"';
+						$siteVal61 = $row["4g_tx_type"];
+						$siteVal62 = 'value="' . $row["4g_tx_marca"] . '"';
+						$siteVal63 = $row["modelo_gabinete1"];
+						$siteVal64 = $row["rectifier_type_cab1"];
+						$siteVal65 = 'value="' . $row["marca_bateria_cab1"] . '"';
+						$siteVal66 = 'value="' . $row["numero_bateria_cab1"] . '"';
+						$siteVal67 = 'value="' . $row["autonomia_gabinete1"] . '"';
+						$siteVal68 = $row["modelo_gabinete2"];
+						$siteVal69 = $row["rectifier_type_cab2"];
+						$siteVal70 = 'value="' . $row["marca_bateria_cab2"] . '"';
+						$siteVal71 = 'value="' . $row["numero_bateria_cab2"] . '"';
+						$siteVal72 = 'value="' . $row["autonomia_gabinete2"] . '"';
+						$siteVal73 = $row["modelo_gabinete3"];
+						$siteVal74 = $row["rectifier_type_cab3"];
+						$siteVal75 = 'value="' . $row["marca_bateria_cab3"] . '"';
+						$siteVal76 = 'value="' . $row["numero_bateria_cab3"] . '"';
+						$siteVal77 = 'value="' . $row["autonomia_gabinete3"] . '"';
+						$siteVal78 = 'value="' . $row["minishelter1"] . '"';
+						$siteVal79 = $row["rectifier_type_minishelter1"];
+						$siteVal80 = 'value="' . $row["marca_bateria_minishelter1"] . '"';
+						$siteVal81 = 'value="' . $row["numero_bateria_minishelter1"] . '"';
+						$siteVal82 = 'value="' . $row["autonomia_minishelter1"] . '"';
+						$siteVal83 = 'value="' . $row["minishelter2"] . '"';
+						$siteVal84 = $row["rectifier_type_minishelter2"];
+						$siteVal85 = 'value="' . $row["marca_bateria_minishelter2"] . '"';
+						$siteVal86 = 'value="' . $row["numero_bateria_minishelter2"] . '"';
+						$siteVal87 = 'value="' . $row["autonomia_minishelter2"] . '"';
+						$siteVal88 = $row["gabinete_ericsson1"];
+						$siteVal89 = $row["gabinete_ericsson2"];
+						$siteVal90 = 'value="' . $row["marca_fuerza1"] . '"';
+						$siteVal91 = 'value="' . $row["modelo_fuerza1"] . '"';
+						$siteVal92 = 'value="' . $row["voltage_salida_fuerza1"] . '"';
+						$siteVal93 = 'value="' . $row["marca_bateria_fuerza1"] . '"';
+						$siteVal94 = 'value="' . $row["numero_bateria_fuerza1"] . '"';
+						$siteVal95 = 'value="' . $row["capacidad_fuerza1"] . '"';
+						$siteVal96 = 'value="' . $row["marca_fuerza2"] . '"';
+						$siteVal97 = 'value="' . $row["modelo_fuerza2"] . '"';
+						$siteVal98 = 'value="' . $row["voltage_salida_fuerza2"] . '"';
+						$siteVal99 = 'value="' . $row["marca_bateria_fuerza2"] . '"';
+						$siteVal100 = 'value="' . $row["numero_bateria_fuerza2"] . '"';
+						$siteVal101 = 'value="' . $row["capacidad_fuerza2"] . '"';
+					}
 				}
 			}
 
 			//Inicia Primer Columna
 			echo '<div class="col-lg-4">';
-			echo '<input type="hidden" id="idFOD" name="idFOD" ' . $siteVal1 . '/>';
+			echo '<input type="hidden" id="tes_id" name="tes_id" ' . $siteVal1 . '/>';
             echo '<div class="form-group">';
             echo '<label for="inputTesId">TES ID</label>';
-            echo '<input type="text" class="form-control" name="inputTesId" placeholder="TESID" ' . $siteVal4 . ' required>';
+            echo '<input type="text" class="form-control" name="inputTesId" placeholder="TESID" ' . $siteVal1 . ' required>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectCriticidad">Criticidad</label>';
 			echo '<select class="form-control" id="selectCriticidad" name="selectCriticidad">';
-			$this->MostrarSelector('criticidad', $siteVal7);
+			$this->MostrarSelector('criticidad', $siteVal4);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputUsuario">Encargado de Zona</label>';
-            echo '<input type="text" class="form-control" name="inputUsuario" placeholder="Encargado de Zona" ' . $siteVal10 . '>';
+            echo '<input type="text" class="form-control" name="inputUsuario" placeholder="Encargado de Zona" ' . $siteVal7 . '>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectArea">Área</label>';
 			echo '<select class="form-control" id="selectArea" name="selectArea">';
-			$this->MostrarSelector('area', $siteVal13);
+			$this->MostrarSelector('area', $siteVal10);
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="inputDireccion">Dirección</label>';
-			echo '<textarea rows="2" cols="50" class="form-control" id="inputDireccion" name="inputDireccion" placeholder="Dirección">' . $siteVal16 . '</textarea>';
+			echo '<textarea rows="2" cols="50" class="form-control" id="inputDireccion" name="inputDireccion" placeholder="Dirección">' . $siteVal13 . '</textarea>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="inputDueñoSitio">Dueño del Sitio</label>';
-			echo '<input type="text" class="form-control" id="inputDueñoSitio" name="inputDueñoSitio" placeholder="Dueño del Sitio" ' . $siteVal19 . '/>';
+			echo '<input type="text" class="form-control" id="inputDueñoSitio" name="inputDueñoSitio" placeholder="Dueño del Sitio" ' . $siteVal16 . '/>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectTipoCobertura">Tipo de Cobertura</label>';
 			echo '<select class="form-control" id="selectTipoCobertura" name="selectTipoCobertura">';
-			$this->MostrarSelector('tipo_cobertura', $siteVal22);
+			$this->MostrarSelector('tipo_cobertura', $siteVal19);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputRestriccionAcceso">Restricción de Acceso</label>';
-            echo '<input type="text" class="form-control" name="inputRestriccionAcceso" placeholder="Restricción de Acceso" ' . $siteVal25 . '>';
+            echo '<input type="text" class="form-control" name="inputRestriccionAcceso" placeholder="Restricción de Acceso" ' . $siteVal22 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputAltura">Altura (M)</label>';
-            echo '<input type="number" class="form-control" name="inputAltura" min="0" placeholder="Altura (M)" ' . $siteVal28 . '>';
+            echo '<input type="number" class="form-control" name="inputAltura" min="0" placeholder="Altura (M)" ' . $siteVal25 . '>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectTipoMaterialShelter">Tipo de Material Shelter</label>';
 			echo '<select class="form-control" id="selectTipoMaterialShelter" name="selectTipoMaterialShelter">';
-			$this->MostrarSelector('tipo_material_shelter', $siteVal31);
+			$this->MostrarSelector('tipo_material_shelter', $siteVal28);
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="inputComConElectrica">Comentarios de Conexión Eléctrica</label>';
-			echo '<textarea rows="2" cols="50" class="form-control" id="inputComConElectrica" name="inputComConElectrica" placeholder="Comentarios de Conexión Eléctrica">' . $siteVal34 . '</textarea>';
+			echo '<textarea rows="2" cols="50" class="form-control" id="inputComConElectrica" name="inputComConElectrica" placeholder="Comentarios de Conexión Eléctrica">' . $siteVal31 . '</textarea>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectLineaElectrica">Línea Eléctrica</label>';
 			echo '<select class="form-control" id="selectLineaElectrica" name="selectLineaElectrica">';
-			$this->MostrarSelector('tipo_linea_electrica', $siteVal37);
+			$this->MostrarSelector('tipo_linea_electrica', $siteVal34);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputModeloGenset">Modelo de Genset</label>';
-            echo '<input type="text" class="form-control" name="inputModeloGenset" placeholder="Modelo de Genset" ' . $siteVal40 . '>';
+            echo '<input type="text" class="form-control" name="inputModeloGenset" placeholder="Modelo de Genset" ' . $siteVal37 . '>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectEstadoGenerador">Estado de Generador</label>';
 			echo '<select class="form-control" id="selectEstadoGenerador" name="selectEstadoGenerador">';
-			$this->MostrarSelector('estado_generador', $siteVal43);
+			$this->MostrarSelector('estado_generador', $siteVal40);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputEstadoATS">Estado de ATS</label>';
-            echo '<input type="text" class="form-control" name="inputEstadoATS" placeholder="Estado de ATS" ' . $siteVal46 . '>';
+            echo '<input type="text" class="form-control" name="inputEstadoATS" placeholder="Estado de ATS" ' . $siteVal43 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputLTENemonico">LTE Nemonico</label>';
-            echo '<input type="text" class="form-control" name="inputLTENemonico" placeholder="LTE Nemonico" ' . $siteVal49 . '>';
+            echo '<input type="text" class="form-control" name="inputLTENemonico" placeholder="LTE Nemonico" ' . $siteVal46 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputUMTSLaunchDate">UMTS Launch Date</label>';
-            echo '<input type="date" class="form-control" name="inputUMTSLaunchDate" ' . $siteVal52 . '>';
+            echo '<input type="date" class="form-control" name="inputUMTSLaunchDate" ' . $siteVal49 . '>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectUMTSC2">UMTS Carrier 2</label>';
 			echo '<select class="form-control" id="selectUMTSC2" name="selectUMTSC2">';
-			$this->MostrarSelector('umts_carrier', $siteVal55);
+			$this->MostrarSelector('umts_carrier', $siteVal52);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputRRUSSite">RRUS por Site</label>';
-            echo '<input type="number" class="form-control" min="1" name="inputRRUSSite" placeholder="RRUS por Site" ' . $siteVal58 . '>';
+            echo '<input type="number" class="form-control" min="1" name="inputRRUSSite" placeholder="RRUS por Site" ' . $siteVal55 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="input2GTXMarca">2G TX Marca</label>';
-            echo '<input type="text" class="form-control" name="input2GTXMarca" placeholder="2G TX Marca" ' . $siteVal61 . '>';
+            echo '<input type="text" class="form-control" name="input2GTXMarca" placeholder="2G TX Marca" ' . $siteVal58 . '>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="select4GTXType">4G TX Type</label>';
 			echo '<select class="form-control" id="select4GTXType" name="select4GTXType">';
-			$this->MostrarSelector('4gtx_type', $siteVal64);
+			$this->MostrarSelector('4gtx_type', $siteVal61);
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectRectTypeCab1">Rectifier Type Cab 1</label>';
 			echo '<select class="form-control" id="selectRectTypeCab1" name="selectRectTypeCab1">';
-			$this->MostrarSelector('rectifier_type', $siteVal67);
+			$this->MostrarSelector('rectifier_type', $siteVal64);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputAutGabinete1">Autonomía de Gabinete 1 (Horas)</label>';
-            echo '<input type="time" class="form-control" name="inputAutGabinete1" placeholder="Autonomía de Gabinete 1" ' . $siteVal70 . '>';
+            echo '<input type="time" class="form-control" name="inputAutGabinete1" placeholder="Autonomía de Gabinete 1" ' . $siteVal67 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputMarcaBateriasCab2">Marca de Baterías Cab 2</label>';
-            echo '<input type="text" class="form-control" name="inputMarcaBateriasCab2" placeholder="Marca de Baterías Cab 2" ' . $siteVal73 . '>';
+            echo '<input type="text" class="form-control" name="inputMarcaBateriasCab2" placeholder="Marca de Baterías Cab 2" ' . $siteVal70 . '>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectModeloGabinete3">Modelo de Gabinete 3</label>';
 			echo '<select class="form-control" id="selectModeloGabinete3" name="selectModeloGabinete3">';
-			$this->MostrarSelector('modelo_gabinete', $siteVal76);
+			$this->MostrarSelector('modelo_gabinete', $siteVal73);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputNumBateriasCab3">Número de Baterías Cab 3</label>';
-            echo '<input type="number" class="form-control" min="1" name="inputNumBateriasCab3" placeholder="Número de Baterías Cab 3" ' . $siteVal79 . '>';
+            echo '<input type="number" class="form-control" min="1" name="inputNumBateriasCab3" placeholder="Número de Baterías Cab 3" ' . $siteVal76 . '>';
             echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectRectTypeMin1">Rectifier Type Minishelter 1</label>';
 			echo '<select class="form-control" id="selectRectTypeMin1" name="selectRectTypeMin1">';
-			$this->MostrarSelector('rectifier_type_min', $siteVal82);
+			$this->MostrarSelector('rectifier_type_min', $siteVal79);
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputAutMinishelter1">Autonomía de Minishelter 1 (Horas)</label>';
-            echo '<input type="time" class="form-control" name="inputAutMinishelter1" placeholder="Autonomía de Minishelter 1" ' . $siteVal85 . '>';
+            echo '<input type="time" class="form-control" name="inputAutMinishelter1" placeholder="Autonomía de Minishelter 1" ' . $siteVal82 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputMarcaBateriasMin2">Marca de Baterías Minishelter 2</label>';
-            echo '<input type="text" class="form-control" name="inputMarcaBateriasMin2" placeholder="Marca de Baterías Minishelter 2" ' . $siteVal88 . '>';
+            echo '<input type="text" class="form-control" name="inputMarcaBateriasMin2" placeholder="Marca de Baterías Minishelter 2" ' . $siteVal85 . '>';
             echo '</div>';
             echo '<div class="form-group">';
 			echo '<label for="selectModeloGabineteE1">Gabinete Ericsson 1</label>';
 			echo '<select class="form-control" id="selectModeloGabineteE1" name="selectModeloGabineteE1">';
-			$this->MostrarSelector('gabinete_ericsson', $siteVa9l);
+			$this->MostrarSelector('gabinete_ericsson', $siteVal88);
 			echo '</select>';
 			echo '</div>';
 			echo '<div class="form-group">';
             echo '<label for="inputModeloFuerza1">Modelo Fuerza 1</label>';
-            echo '<input type="text" class="form-control" name="inputModeloFuerza1" placeholder="Modelo de Fuerza 1" ' . $siteVal94 . '>';
+            echo '<input type="text" class="form-control" name="inputModeloFuerza1" placeholder="Modelo de Fuerza 1" ' . $siteVal91 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputNumeroBateriasF1">Número de Baterías de Fuerza 1</label>';
-            echo '<input type="number" min="1" class="form-control" name="inputNumeroBateriasF1" placeholder="Número de Baterías de Fuerza 1" ' . $siteVal97 . '>';
+            echo '<input type="number" min="1" class="form-control" name="inputNumeroBateriasF1" placeholder="Número de Baterías de Fuerza 1" ' . $siteVal94 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputModeloFuerza2">Modelo Fuerza 2</label>';
-            echo '<input type="text" class="form-control" name="inputModeloFuerza2" placeholder="Modelo de Fuerza 2" ' . $siteVal100 . '>';
+            echo '<input type="text" class="form-control" name="inputModeloFuerza2" placeholder="Modelo de Fuerza 2" ' . $siteVal97 . '>';
             echo '</div>';
             echo '<div class="form-group">';
             echo '<label for="inputNumeroBateriasF2">Número de Baterías de Fuerza 2</label>';
-            echo '<input type="number" min="1" class="form-control" name="inputNumeroBateriasF2" placeholder="Número de Baterías de Fuerza 2" ' . $siteVal103 . '>';
+            echo '<input type="number" min="1" class="form-control" name="inputNumeroBateriasF2" placeholder="Número de Baterías de Fuerza 2" ' . $siteVal100 . '>';
             echo '</div>';
 			echo '</div>';
 			//Termina Primer Columna
@@ -455,8 +701,9 @@
 			echo '</div>';
 			echo '<div class="form-group">';
 			echo '<label for="selectMunicipio">Municipio</label>';
-			echo '<select class="form-control" id="selectMunicipio" name="selectMunicipio" ' . $siteVal12 . '>';
+			echo '<select class="form-control" id="selectMunicipio" name="selectMunicipio">';
 			echo '<option value="">Seleccionar...</option>';
+			//$siteVal12
 			echo '</select>';
 			echo '</div>';
             echo '<div class="form-group">';
@@ -597,8 +844,441 @@
             //Termina Tercera Columna
 		}
 
-		function MostrarMatrizFOD() {
-			return '<thead> <tr> <th>#</th> <th>First Name</th> <th>Last Name</th> <th>Username</th> <th>Username</th> <th>Username</th> <th>Username</th> <th>Username</th> </tr> </thead> <tbody> <tr> <th scope="row">1</th> <td>Mark</td> <td>Otto</td> <td>@mdo</td> <td>Otto</td> <td>Otto</td> <td>Otto</td> <td>Otto</td> </tr> </tbody>';
+		function MMFOD() {
+			$oOBC = new OBC;
+			$ret = $oOBC->PDODBConnection("CALL pMMFOD()");
+
+			$fa = urlencode(base64_encode("editrecord"));
+
+			foreach ($ret as $row) {
+				$fid = urlencode(base64_encode($row["tes_id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="FOD.php?fa=' . $fa . '&fid=' . $fid . '">' . $row["tes_id"] . '</a></th>';
+				echo '<td>' . $row["nombre"] . '</td>';
+				echo '<td>' . $row["estado"] . '</td>';
+				echo '<td>' . $row["criticidad"] . '</td>';
+				echo '<td>' . $row["fecha_construccion"] . '</td>';
+				echo '<td>' . $row["tipificacion"] . '</td>';
+				echo '<td>Responsable de Zona</td>';
+				echo '<td>' . $row["zona"] . '</td>';
+				echo '<td>' . $row["zona_geografica"] . '</td>';
+				echo '<td>' . $row["area"] . '</td>';
+				echo '<td>' . $row["departamento"] . '</td>';
+				echo '<td>' . $row["municipio"] . '</td>';
+				echo '<td>' . $row["direccion"] . '</td>';
+				echo '<td>' . $row["latitud"] . '</td>';
+				echo '<td>' . $row["longitud"] . '</td>';
+				echo '<td>' . $row["dueño_sitio"] . '</td>';
+				echo '<td>' . $row["tipo_cuenta"] . '</td>';
+				echo '<td>' . $row["estado_contrato"] . '</td>';
+				echo '<td>' . $row["tipo_cobertura"] . '</td>';
+				echo '<td>' . $row["forma_acceso"] . '</td>';
+				echo '<td>' . $row["contacto_acceso"] . '</td>';
+				echo '<td>' . $row["restriccion_acceso"] . '</td>';
+				echo '<td>' . $row["peligrosidad"] . '</td>';
+				echo '<td>' . $row["tipo_estructura"] . '</td>';
+				echo '<td>' . $row["altura"] . '</td>';
+				echo '<td>' . $row["tipo_hierro"] . '</td>';
+				echo '<td>' . $row["tipo_muro_perimetral"] . '</td>';
+				echo '<td>' . $row["tipo_material_shelter"] . '</td>';
+				echo '<td>Operadores coubidados</td>';
+				echo '<td>' . $row["nic"] . '</td>';
+				echo '<td>' . $row["comentarios_conexion_electrica"] . '</td>';
+				echo '<td>' . $row["comp_electrica"] . '</td>';
+				echo '<td>' . $row["medidor_energia"] . '</td>';
+				echo '<td>' . $row["linea_electrica"] . '</td>';
+				echo '<td>' . $row["capacidad_transformador"] . '</td>';
+				echo '<td>' . $row["marca_genset"] . '</td>';
+				echo '<td>' . $row["modelo_genset"] . '</td>';
+				echo '<td>' . $row["capacidad_genset"] . '</td>';
+				echo '<td>' . $row["capacidad_tanque"] . '</td>';
+				echo '<td>' . $row["estado_generador"] . '</td>';
+				echo '<td>' . $row["marca_ats"] . '</td>';
+				echo '<td>' . $row["capacidad_ats"] . '</td>';
+				echo '<td>' . $row["estado_ats"] . '</td>';
+				echo '<td>' . $row["gsm_nemonico"] . '</td>';
+				echo '<td>' . $row["umts_nemonico"] . '</td>';
+				echo '<td>' . $row["lte_nemonico"] . '</td>';
+				echo '<td>' . $row["cluster_name"] . '</td>';
+				echo '<td>' . $row["gsm_launch"] . '</td>';
+				echo '<td>' . $row["umts_launch"] . '</td>';
+				echo '<td>' . $row["lte_launch"] . '</td>';
+				echo '<td>' . $row["umts_carrier1"] . '</td>';
+				echo '<td>' . $row["umts_carrier2"] . '</td>';
+				echo '<td>' . $row["umts_carrier3"] . '</td>';
+				echo '<td>' . $row["lte_cells"] . '</td>';
+				echo '<td>' . $row["rrus_site"] . '</td>';
+				echo '<td>' . $row["antenas_site"] . '</td>';
+				echo '<td>' . $row["2g_tx_type"] . '</td>';
+				echo '<td>' . $row["2g_tx_marca"] . '</td>';
+				echo '<td>' . $row["3g_tx_type"] . '</td>';
+				echo '<td>' . $row["3g_tx_marca"] . '</td>';
+				echo '<td>' . $row["4g_tx_type"] . '</td>';
+				echo '<td>' . $row["4g_tx_marca"] . '</td>';
+				echo '<td>' . $row["modelo_gabinete1"] . '</td>';
+				echo '<td>' . $row["rectifier_type_cab1"] . '</td>';
+				echo '<td>' . $row["marca_bateria_cab1"] . '</td>';
+				echo '<td>' . $row["numero_bateria_cab1"] . '</td>';
+				echo '<td>' . $row["autonomia_gabinete1"] . '</td>';
+				echo '<td>' . $row["modelo_gabinete2"] . '</td>';
+				echo '<td>' . $row["rectifier_type_cab2"] . '</td>';
+				echo '<td>' . $row["marca_bateria_cab2"] . '</td>';
+				echo '<td>' . $row["numero_bateria_cab2"] . '</td>';
+				echo '<td>' . $row["autonomia_gabinete2"] . '</td>';
+				echo '<td>' . $row["modelo_gabinete3"] . '</td>';
+				echo '<td>' . $row["rectifier_type_cab3"] . '</td>';
+				echo '<td>' . $row["marca_bateria_cab3"] . '</td>';
+				echo '<td>' . $row["numero_bateria_cab3"] . '</td>';
+				echo '<td>' . $row["autonomia_gabinete3"] . '</td>';
+				echo '<td>' . $row["minishelter1"] . '</td>';
+				echo '<td>' . $row["rectifier_type_minishelter1"] . '</td>';
+				echo '<td>' . $row["marca_bateria_minishelter1"] . '</td>';
+				echo '<td>' . $row["numero_bateria_minishelter1"] . '</td>';
+				echo '<td>' . $row["autonomia_minishelter1"] . '</td>';
+				echo '<td>' . $row["minishelter2"] . '</td>';
+				echo '<td>' . $row["rectifier_type_minishelter2"] . '</td>';
+				echo '<td>' . $row["marca_bateria_minishelter2"] . '</td>';
+				echo '<td>' . $row["numero_bateria_minishelter2"] . '</td>';
+				echo '<td>' . $row["autonomia_minishelter2"] . '</td>';
+				echo '<td>' . $row["gabinete_ericsson1"] . '</td>';
+				echo '<td>' . $row["gabinete_ericsson2"] . '</td>';
+				echo '<td>' . $row["marca_fuerza1"] . '</td>';
+				echo '<td>' . $row["modelo_fuerza1"] . '</td>';
+				echo '<td>' . $row["voltage_salida_fuerza1"] . '</td>';
+				echo '<td>' . $row["marca_bateria_fuerza1"] . '</td>';
+				echo '<td>' . $row["numero_bateria_fuerza1"] . '</td>';
+				echo '<td>' . $row["capacidad_fuerza1"] . '</td>';
+				echo '<td>' . $row["marca_fuerza2"] . '</td>';
+				echo '<td>' . $row["modelo_fuerza2"] . '</td>';
+				echo '<td>' . $row["voltage_salida_fuerza2"] . '</td>';
+				echo '<td>' . $row["marca_bateria_fuerza2"] . '</td>';
+				echo '<td>' . $row["numero_bateria_fuerza2"] . '</td>';
+				echo '<td>' . $row["capacidad_fuerza2"] . '</td>';
+				echo '<td>' . $row["fecha_creacion"] . '</td>';
+				echo '<td>' . $row["creado_por"] . '</td> </tr>';
+			}
+		}
+
+		function CMFOD() {
+			if (isset($_FILES['fileTemp'])) {
+				if ($_FILES['fileTemp']['tmp_name']) {
+					if (!$_FILES['fileTemp']['error']) {
+
+					    $inputFile = $_FILES['fileTemp']['tmp_name'];
+
+					    $targetdir = 'Up/' . basename($_FILES["fileTemp"]["name"]);
+						move_uploaded_file($_FILES['fileTemp']['tmp_name'], $targetdir);
+					    $extension = strtoupper(pathinfo($targetdir, PATHINFO_EXTENSION));
+
+					    if ($extension == "XLS") {
+							$excel = new PhpExcelReader;
+							$excel->read($targetdir);
+
+							$oOBC = new OBC;
+							//Saltar la primer fila del archivo
+							$x = 2;
+							while($x <= $excel->sheets[0]['numRows']) {
+								$y = 1;
+								while($y <= $excel->sheets[0]['numCols']) {
+								  $cell = isset($excel->sheets[0]['cells'][$x][$y]) ? trim($excel->sheets[0]['cells'][$x][$y]) : "";
+								  if ($y == 1) {
+								  	$siteVal1 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 2) {
+								  	$siteVal2 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 3) {
+								  	$siteVal3 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 4) {
+								  	$siteVal4 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 5) {
+								  	$siteVal5 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 6) {
+								  	$siteVal6 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 7) {
+								  	$siteVal7 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 8) {
+								  	$siteVal8 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 9) {
+								  	$siteVal9 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 10) {
+								  	$siteVal10 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 11) {
+								  	$siteVal11 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 12) {
+								  	$siteVal12 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 13) {
+								  	$siteVal13 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 14) {
+								  	$siteVal14 = $cell;
+								  } elseif ($y == 15) {
+								  	$siteVal15 = $cell;
+								  } elseif ($y == 16) {
+								  	$siteVal16 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 17) {
+								  	$siteVal17 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 18) {
+								  	$siteVal18 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 19) {
+								  	$siteVal19 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 20) {
+								  	$siteVal20 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 21) {
+								  	$siteVal21 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 22) {
+								  	$siteVal22 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 23) {
+								  	$siteVal23 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 24) {
+								  	$siteVal24 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 25) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal25 = $cell;
+								  } elseif ($y == 26) {
+								  	$siteVal26 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 27) {
+								  	$siteVal27 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 28) {
+								  	$siteVal28 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 29) {
+								  	$siteVal29 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 30) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal30 = $cell;
+								  } elseif ($y == 31) {
+								  	$siteVal31 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 32) {
+								  	$siteVal32 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 33) {
+								  	$siteVal33 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 34) {
+								  	$siteVal34 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 35) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal35 = $cell;
+								  } elseif ($y == 36) {
+								  	$siteVal36 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 37) {
+								  	$siteVal37 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 38) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal38 = $cell;
+								  } elseif ($y == 39) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal39 = $cell;
+								  } elseif ($y == 40) {
+								  	$siteVal40 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 41) {
+								  	$siteVal41 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 42) {
+								  	$siteVal42 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 43) {
+								  	$siteVal43 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 44) {
+								  	$siteVal44 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 45) {
+								  	$siteVal45 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 46) {
+								  	$siteVal46 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 47) {
+								  	$siteVal47 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 48) {
+								  	if (trim($cell) == "") {
+								  		$siteVal48 = "NULL";
+								  	} else {
+								  		$siteVal48 = $oOBC->DBQuote($cell);
+								  	}
+								  } elseif ($y == 49) {
+								  	if (trim($cell) == "") {
+								  		$siteVal49 = "NULL";
+								  	} else {
+								  		$siteVal49 = $oOBC->DBQuote($cell);
+								  	}
+								  } elseif ($y == 50) {
+								  	if (trim($cell) == "") {
+								  		$siteVal50 = "NULL";
+								  	} else {
+								  		$siteVal50 = $oOBC->DBQuote($cell);
+								  	}
+								  } elseif ($y == 51) {
+								  	$siteVal51 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 52) {
+								  	$siteVal52 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 53) {
+								  	$siteVal53 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 54) {
+								  	$siteVal54 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 55) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal55 = $cell;
+								  } elseif ($y == 56) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal56 = $cell;
+								  } elseif ($y == 57) {
+								  	$siteVal57 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 58) {
+								  	$siteVal58 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 59) {
+								  	$siteVal59 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 60) {
+								  	$siteVal60 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 61) {
+								  	$siteVal61 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 62) {
+								  	$siteVal62 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 63) {
+								  	$siteVal63 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 64) {
+								  	$siteVal64 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 65) {
+								  	$siteVal65 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 66) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal66 = $cell;
+								  } elseif ($y == 67) {
+								  	if (trim($cell) == "") {
+								  		$siteVal67 = "NULL";
+								  	} else {
+								  		$siteVal67 = $oOBC->DBQuote($cell);
+								  	}
+								  } elseif ($y == 68) {
+								  	$siteVal68 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 69) {
+								  	$siteVal69 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 70) {
+								  	$siteVal70 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 71) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal71 = $cell;
+								  } elseif ($y == 72) {
+								  	if (trim($cell) == "") {
+								  		$siteVal72 = "NULL";
+								  	} else {
+								  		$siteVal72 = $oOBC->DBQuote($cell);
+								  	}
+								  } elseif ($y == 73) {
+								  	$siteVal73 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 74) {
+								  	$siteVal74 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 75) {
+								  	$siteVal75 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 76) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal76 = $cell;
+								  } elseif ($y == 77) {
+								  	if (trim($cell) == "") {
+								  		$siteVal77 = "NULL";
+								  	} else {
+								  		$siteVal77 = $oOBC->DBQuote($cell);
+								  	}
+								  } elseif ($y == 78) {
+								  	$siteVal78 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 79) {
+								  	$siteVal79 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 80) {
+								  	$siteVal80 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 81) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal81 = $cell;
+								  } elseif ($y == 82) {
+								  	$siteVal82 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 83) {
+								  	$siteVal83 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 84) {
+								  	$siteVal84 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 85) {
+								  	$siteVal85 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 86) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal86 = $cell;
+								  } elseif ($y == 87) {
+								  	$siteVal87 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 88) {
+								  	$siteVal88 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 89) {
+								  	$siteVal89 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 90) {
+								  	$siteVal90 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 91) {
+								  	$siteVal91 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 92) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal92 = $cell;
+								  } elseif ($y == 93) {
+								  	$siteVal93 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 94) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal94 = $cell;
+								  } elseif ($y == 95) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal95 = $cell;
+								  } elseif ($y == 96) {
+								  	$siteVal96 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 97) {
+								  	$siteVal97 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 98) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal98 = $cell;
+								  } elseif ($y == 99) {
+								  	$siteVal99 = $oOBC->DBQuote($cell);
+								  } elseif ($y == 100) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal100 = $cell;
+								  } elseif ($y == 101) {
+								  	if (trim($cell) == "") {
+								  		$cell = "NULL";
+								  	}
+								  	$siteVal101 = $cell;
+								  }
+								  $y++;
+								}
+								$x++;
+
+								$dbUsuario = $oOBC->DBQuote($_SESSION["usuario"]);
+								//$resultado = $oOBC->PDODBConnectionNE(
+								$resultado = $oOBC->PDODBConnectionNE("CALL pMttoFOD(0," . $siteVal1 . "," . $siteVal2 . "," . $siteVal3 . "," . $siteVal4 . "," . $siteVal5 . "," . $siteVal6 . "," . $siteVal8 . "," . $siteVal9 . "," . $siteVal10 . "," . $siteVal11 . "," . $siteVal12 . "," . $siteVal13 . "," . $siteVal14 . "," . $siteVal15 . "," . $siteVal16 . "," . $siteVal17 . "," . $siteVal18 . "," . $siteVal19 . "," . $siteVal20 . "," . $siteVal21 . "," . $siteVal22 . "," . $siteVal23 . "," . $siteVal24 . "," . $siteVal25 . "," . $siteVal26 . "," . $siteVal27 . "," . $siteVal28 . "," . $siteVal30 . "," . $siteVal31 . "," . $siteVal32 . "," . $siteVal33 . "," . $siteVal34 . "," . $siteVal35 . "," . $siteVal36 . "," . $siteVal37 . "," . $siteVal38 . "," . $siteVal39 . "," . $siteVal40 . "," . $siteVal41 . "," . $siteVal42 . "," . $siteVal43 . "," . $siteVal44 . "," . $siteVal45 . "," . $siteVal46 . "," . $siteVal47 . "," . $siteVal48 . "," . $siteVal49 . "," . $siteVal50 . "," . $siteVal51 . "," . $siteVal52 . "," . $siteVal53 . "," . $siteVal54 . "," . $siteVal55 . "," . $siteVal56 . "," . $siteVal57 . "," . $siteVal58 . "," . $siteVal59 . "," . $siteVal60 . "," . $siteVal61 . "," . $siteVal62 . "," . $siteVal63 . "," . $siteVal64 . "," . $siteVal65 . "," . $siteVal66 . "," . $siteVal67 . "," . $siteVal68 . "," . $siteVal69 . "," . $siteVal70 . "," . $siteVal71 . "," . $siteVal72 . "," . $siteVal73 . "," . $siteVal74 . "," . $siteVal75 . "," . $siteVal76 . "," . $siteVal77 . "," . $siteVal78 . "," . $siteVal79 . "," . $siteVal80 . "," . $siteVal81 . "," . $siteVal82 . "," . $siteVal83 . "," . $siteVal84 . "," . $siteVal85 . "," . $siteVal86 . "," . $siteVal87 . "," . $siteVal88 . "," . $siteVal89 . "," . $siteVal90 . "," . $siteVal91 . "," . $siteVal92 . "," . $siteVal93 . "," . $siteVal94 . "," . $siteVal95 . "," . $siteVal96 . "," . $siteVal97 . "," . $siteVal98 . "," . $siteVal99 . "," . $siteVal100 . "," . $siteVal101 . "," . $dbUsuario . ")");
+
+								//$resultado = $oOBC->PDODBConnectionNE("CALL pMttoFOD(0," . $siteVal1 . "," . $siteVal2 . "," . $siteVal3 . "," . $siteVal4 . "," . $siteVal5 . "," . $siteVal6 . "," . $siteVal8 . "," . $siteVal9 . "," . $siteVal10 . "," . $siteVal11 . "," . $siteVal12 . "," . $siteVal13 . "," . $siteVal14 . "," . $siteVal15 . "," . $siteVal16 . "," . $siteVal17 . "," . $siteVal18 . "," . $siteVal19 . "," . $siteVal20 . "," . $siteVal21 . "," . $siteVal22 . "," . $siteVal23 . "," . $siteVal24 . "," . $siteVal25 . "," . $siteVal26 . "," . $siteVal27 . "," . $siteVal28 . "," . $siteVal30 . "," . $siteVal31 . "," . $siteVal32 . "," . $siteVal33 . "," . $siteVal34 . "," . $siteVal35 . "," . $siteVal36 . "," . $siteVal37 . "," . $siteVal38 . "," . $siteVal39 . "," . $siteVal40 . "," . $siteVal41 . "," . $siteVal42 . "," . $siteVal43 . "," . $siteVal44 . "," . $siteVal45 . "," . $siteVal46 . "," . $siteVal47 . "," . $siteVal48 . "," . $siteVal49 . "," . $siteVal50 . "," . $siteVal51 . "," . $siteVal52 . "," . $siteVal53 . "," . $siteVal54 . "," . $siteVal55 . "," . $siteVal56 . "," . $siteVal57 . "," . $siteVal58 . "," . $siteVal59 . "," . $siteVal60 . "," . $siteVal61 . "," . $siteVal62 . "," . $siteVal63 . "," . $siteVal64 . "," . $siteVal65 . "," . $siteVal66 . "," . $siteVal67 . "," . $siteVal68 . "," . $siteVal69 . "," . $siteVal70 . "," . $siteVal71 . "," . $siteVal72 . "," . $siteVal73 . "," . $siteVal74 . "," . $siteVal75 . "," . $siteVal76 . "," . $siteVal77 . "," . $siteVal78 . "," . $siteVal79 . "," . $siteVal80 . "," . $siteVal81 . "," . $siteVal82 . "," . $siteVal83 . "," . $siteVal84 . "," . $siteVal85 . "," . $siteVal86 . "," . $siteVal87 . "," . $siteVal88 . "," . $siteVal89 . "," . $siteVal90 . "," . $siteVal91 . "," . $siteVal92 . "," . $siteVal93 . "," . $siteVal94 . "," . $siteVal95 . "," . $siteVal96 . "," . $siteVal97 . "," . $siteVal98 . "," . $siteVal99 . "," . $siteVal100 . "," . $siteVal101 . "," . $dbUsuario . ")");
+							}
+					    } else {
+					    	error_log("Template has to be XLS 97-2003");
+					    }
+					} else{
+					    error_log($_FILES['fileTemp']['error']);
+					}
+				}
+			}
 		}
 
 		function MostrarCatalogoMantenimientos() {

@@ -3,6 +3,7 @@
   require_once('./Classes/OBA.php');
   $oOBA = new OBA;
   $oOBA->validarSesion();
+  $oOBA->CMFOD();
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,19 +32,163 @@
 
       <center><h1>Matriz FOD</h1></center>
 
-          <form>
+          <form method="POST">
             <div class="row">
                 <?php
                   //$oOBA->FrmFOD();
                   $oOBA->FrmFOD3C();
                 ?>
             </div>
+            <center>
+              <input type="submit" class="btn btn-success" value="Guardar"/>
+              <a onClick="limpiarForm()" class="btn btn-success">Limpiar</a>
+            </center>
           </form>
+          <br/>
+          <br/>
+
+
+      <div class="row">
+        <div class="col-lg-12">
+      <table class="table table-hover table-responsive">
+        <thead> <tr> 
+          <th>TES</th>
+          <th>Nombre</th> 
+          <th>Estado</th> 
+          <th>Criticidad</th> 
+          <th>Fecha de Construcción</th> 
+          <th>Tipificación</th> 
+          <th>Responsable de Zona</th> 
+          <th>Zona</th> 
+          <th>Zona Geográfica</th> 
+          <th>Área</th> 
+          <th>Departamento</th> 
+          <th>Municipio</th> 
+          <th>Dirección</th> 
+          <th>Latitud</th> 
+          <th>Longitud</th> 
+          <th>Dueño de Sitio</th> 
+          <th>Tipo de Cuenta</th> 
+          <th>Estado de Contrato</th> 
+          <th>Tipo de Cobertura</th> 
+          <th>Forma de Acceso</th> 
+          <th>Contacto de Acceso</th> 
+          <th>Restricción de Acceso</th> 
+          <th>Peligrosidad</th> 
+          <th>Tipo de Estructura</th> 
+          <th>Altura</th> 
+          <th>Tipo de Hierro</th> 
+          <th>Tipo de Muro Perimetral</th> 
+          <th>Tipo de Material Shelter</th> 
+          <th>Operadores Coubicados</th> 
+          <th>NIC</th> 
+          <th>Comentarios de Conexión Eléctrica</th> 
+          <th>Compañía Eléctrica</th> 
+          <th>Medidor de Energía</th> 
+          <th>Línea Eléctrica</th> 
+          <th>Capacidad de Transformador (KVA)</th> 
+          <th>Marca de Genset</th> 
+          <th>Modelo de Genset</th> 
+          <th>Capacidad de Genset (KVA)</th> 
+          <th>Capacidad de Tanque (Galones)</th> 
+          <th>Estado de Generador</th> 
+          <th>Marca ATS</th> 
+          <th>Capacidad de ATS</th> 
+          <th>Estado de ATS</th> 
+          <th>GSM Nemonico</th> 
+          <th>UMTS Nemonico</th> 
+          <th>LTE Nemonico</th> 
+          <th>Cluster Name</th> 
+          <th>GSM Launch Date</th> 
+          <th>UMTS Launch Date</th> 
+          <th>LTE Launch Date</th> 
+          <th>UMTS Carrier 1</th> 
+          <th>UMTS Carrier 2</th> 
+          <th>UMTS Carrier 3</th> 
+          <th>LTE Cells</th> 
+          <th>RRUs por Site</th> 
+          <th>Antenas por Site</th> 
+          <th>2G TX Type</th> 
+          <th>2G TX Marca</th> 
+          <th>3G TX Type</th> 
+          <th>3G TX Marca</th> 
+          <th>4G TX Type</th> 
+          <th>4G TX Marca</th> 
+          <th>Gabinete Modelo 1</th> 
+          <th>Rectifier Type Cab 1</th> 
+          <th>Marca de Baterías Cab 1</th> 
+          <th>Número de Baterías Cab 1</th> 
+          <th>Autonomía de Gabinete 1 (horas)</th> 
+          <th>Gabinete Modelo 2</th> 
+          <th>Rectifier Type Cab 2</th> 
+          <th>Marca de Baterías Cab 2</th> 
+          <th>Número de Baterías Cab 2</th> 
+          <th>Autonomía de Gabinete 2 (horas)</th> 
+          <th>Gabinete Modelo 3</th> 
+          <th>Rectifier Type Cab 3</th> 
+          <th>Marca de Baterías Cab 3</th> 
+          <th>Número de Baterías Cab 3</th> 
+          <th>Autonomía de Gabinete 3 (horas)</th> 
+          <th>Minishelter 1</th> 
+          <th>Rectifier Type Minishelter 1</th> 
+          <th>Marca de Baterías Minishelter 1</th> 
+          <th>Número de Baterías Minishelter 1</th> 
+          <th>Autonomía de Minishelter 1 (horas)</th> 
+          <th>Minishelter 2</th> 
+          <th>Rectifier Type Minishelter 2</th> 
+          <th>Marca de Baterías Minishelter 2</th> 
+          <th>Número de Baterías Minishelter 2</th> 
+          <th>Autonomía de Minishelter 2 (horas)</th> 
+          <th>Gabinete Ericsson 1</th> 
+          <th>Gabinete Ericsson 2</th> 
+          <th>Marca de Fuerza 1</th> 
+          <th>Modelo de Fuerza 1</th> 
+          <th>Voltage de Salida de Fuerza 1</th> 
+          <th>Marca de Baterías de Fuerza 1</th> 
+          <th>Número de Baterias de Fuerza 1</th> 
+          <th>Capacidad AH de Fuerza 1</th> 
+          <th>Marca de Fuerza 2</th> 
+          <th>Modelo de Fuerza 2</th> 
+          <th>Voltage de Salida de Fuerza 2</th> 
+          <th>Marca de Baterías de Fuerza 2</th> 
+          <th>Número de Baterías de Fuerza 2</th> 
+          <th>Capacidad AH de Fuerza 2</th> 
+          <th>Fecha de Creación</th> 
+          <th>Creado Por</th> </tr> </thead> 
+        <tbody>
+          <?php
+            $oOBA->MMFOD();
+          ?>
+        </tbody>
+      </table>
+      </div>
+      <a href="Classes/OBP.php?fa=FOD" target="_blank">Descargar Excel</a>
+    </div>
+      
+      <br/>
       <br/>
 
-        <table class="table table-hover table-responsive">
-          <thead> <tr> <th>TES</th> <th>Nombre</th> <th>Estado</th> <th>Criticidad</th> <th>Fecha de Construcción</th> <th>Tipificación</th> <th>Responsable de Zona</th> <th>Zona</th> <th>Zona Geográfica</th> <th>Área</th> <th>Departamento</th> <th>Municipio</th> <th>Dirección</th> <th>Latitud</th> <th>Longitud</th> <th>Dueño de Sitio</th> <th>Tipo de Cuenta</th> <th>Estado de Contrato</th> <th>Tipo de Cobertura</th> <th>Forma de Acceso</th> <th>Contacto de Acceso</th> <th>Restricción de Acceso</th> <th>Peligrosidad</th> <th>Tipo de Estructura</th> <th>Altura</th> <th>Tipo de Hierro</th> <th>Tipo de Muro Perimetral</th> <th>Tipo de Material Shelter</th> <th>Operadores Coubicados</th> <th>NIC</th> <th>Comentarios de Conexión Eléctrica</th> <th>Compañía Eléctrica</th> <th>Medidor de Energía</th> <th>Línea Eléctrica</th> <th>Capacidad de Transformador (KVA)</th> <th>Marca de Genset</th> <th>Modelo de Genset</th> <th>Capacidad de Genset (KVA)</th> <th>Capacidad de Tanque (Galones)</th> <th>Estado de Generador</th> <th>Marca ATS</th> <th>Capacidad de ATS</th> <th>Estado de ATS</th> <th>GSM Nemonico</th> <th>UMTS Nemonico</th> <th>LTE Nemonico</th> <th>Cluster Name</th> <th>GSM Launch Date</th> <th>UMTS Launch Date</th> <th>LTE Launch Date</th> <th>UMTS Carrier 1</th> <th>UMTS Carrier 2</th> <th>UMTS Carrier 3</th> <th>LTE Cells</th> <th>RRUs por Site</th> <th>Antenas por Site</th> <th>2G TX Type</th> <th>2G TX Marca</th> <th>3G TX Type</th> <th>3G TX Marca</th> <th>4G TX Type</th> <th>4G TX Marca</th> <th>Gabinete Modelo 1</th> <th>Rectifier Type Cab 1</th> <th>Marca de Baterías Cab 1</th> <th>Número de Baterías Cab 1</th> <th>Autonomía de Gabinete 1 (horas)</th> <th>Gabinete Modelo 2</th> <th>Rectifier Type Cab 2</th> <th>Marca de Baterías Cab 2</th> <th>Número de Baterías Cab 2</th> <th>Autonomía de Gabinete 2 (horas)</th> <th>Gabinete Modelo 3</th> <th>Rectifier Type Cab 3</th> <th>Marca de Baterías Cab 3</th> <th>Número de Baterías Cab 3</th> <th>Autonomía de Gabinete 3 (horas)</th> <th>Minishelter 1</th> <th>Rectifier Type Minishelter 1</th> <th></th> <th>Marca de Baterías Minishelter 1</th> <th>Número de Baterías Minishelter 1</th> <th>Autonomía de Minishelter 1 (horas)</th> <th>Minishelter 2</th> <th>Rectifier Type Minishelter 2</th> <th></th> <th>Marca de Baterías Minishelter 2</th> <th>Número de Baterías Minishelter 2</th> <th>Autonomía de Minishelter 2 (horas)</th> <th>Gabinete Ericsson 1</th> <th>Gabinete Ericsson 2</th> <th>Marca de Fuerza 1</th> <th>Modelo de Fuerza 1</th> <th>Voltage de Salida de Fuerza 1</th> <th>Número de Baterias de Fuerza 1</th> <th>Capacidad AH de Fuerza 1</th> <th>Marca de Fuerza 2</th> <th>Modelo de Fuerza 2</th> <th>Voltage de Salida de Fuerza 2</th> <th>Marca de Baterías de Fuerza 2</th> <th>Número de Baterías de Fuerza 2</th> <th>Capacidad AH de Fuerza 2</th> </tr> </thead> <tbody> <tr> <th scope="row"><a href="#">TES1740</a></th> <td>Mark</td> <td>Otto</td> <td>@mdo</td> <td>Otto</td> <td>Otto</td> <td>Otto</td> <td>Otto</td> </tr> </tbody>
-        </table>
+      <center><h1>Carga Masiva de FOD</h1></center>
+      <div class="row">
+        <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
+          <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <input type="file" id="fileTemp" name="fileTemp" accept=".xls" required>
+            </div>
+            <div class="form-group" align="center">
+              <a href="./Temp/FOD.xls" name="excelTemplate">Descargar Plantilla</a><br/>
+              <a href="./Temp/FOD.xls" name="excelTemplate"><img src="./Imgs/excel.png" height="35"></a>
+            </div>
+            <center>
+              <input type="submit" class="btn btn-success" value="Cargar"/>
+            </center>
+          </form>
+        </div>
+        <div class="col-lg-4">
+        </div>
+      </div>
 
       <!-- Site footer -->
       <footer class="footer">
