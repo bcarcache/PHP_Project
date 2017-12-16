@@ -1647,6 +1647,18 @@
 			}
 		}
 
+		function MMRZ($redir) {
+			$oOBC = new OBC;
+			$ret = $oOBC->PDODBConnection("CALL pMMRZ()");
+
+			$fa = urlencode(base64_encode("editrecord"));
+
+			foreach ($ret as $row) {
+				$fid = urlencode(base64_encode($row["id"]));
+				echo '<tr> <th scope="row"><a id="ra' . $row["id"] . '" href="' . $redir . '?fa=' . $fa . '&fid=' . $fid . '">' . $row["id"] . '</a></th> <td>' . $row["responsable"] . '</td> <td>' . $row["zona"] . '</td> <td>' . $row["activo"] . '</td> </tr>';
+			}
+		}
+
 		function CMCatalogo($cat) {
 			if (isset($_FILES['fileTemp'])) {
 				if ($_FILES['fileTemp']['tmp_name']) {
@@ -1686,6 +1698,93 @@
 					    }
 					} else{
 					    error_log($_FILES['fileTemp']['error']);
+					}
+				}
+			}
+		}
+
+		function FrmMttoResponsableZona() {
+			//Inicializar Variables
+			$oOBC = new OBC;
+			$idEZVal = '';
+			$zonaVal = '';
+			$usuarioVal = '';
+			$activoVal = '';
+
+			//Validacion de Acciones
+			if ($_POST) {
+				if ($_POST['idEZ']) {
+					$idEZ = $_POST['idEZ'];
+				} else {
+					$idEZ = 0;
+				}
+				$usuario = $oOBC->DBQuote($_POST['selectUsuario']);
+				$zona = $oOBC->DBQuote($_POST['selectZona']);
+				$activo = $_POST['checkboxActivo'];
+
+				$resultado = $oOBC->PDODBConnection("CALL pMttoRZ(" . $idEZ . "," . $usuario . "," . $zona . "," . $activo . ")");
+			} elseif ($_GET) {
+				$action = base64_decode(urldecode($_GET["fa"]));
+				$idEZVal = base64_decode(urldecode($_GET["fid"]));
+				if (strcmp($action, 'editrecord') == 0) {
+					
+					$infoCat = $oOBC->PDODBConnection("CALL pOIRZ(" . $idEZVal . ")");
+					$idEZVal = 'value="' . $idEZVal . '"';
+					foreach ($infoCat as $row) {
+						$zonaVal = 'value="' . $row["id_zona"] . '"';
+						$usuarioVal = $row["id_usuario_responsable"];
+						if ($row["activo"]) {
+							$activoVal = 'checked';
+						}
+					}
+
+				}
+			}
+			echo '<input type="hidden" id="idEZ" name="idEZ" ' . $idEZVal . '/>';
+			echo '<div class="form-group">';
+			echo '<label for="selectZona">Zona</label>';
+			echo '<select class="form-control" id="selectZona" name="selectZona">';
+			$this->MostrarSelectorRZ('zona', $zonaVal);
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="form-group">';
+			echo '<label for="selectUsuario">Usuario</label>';
+			echo '<select class="form-control" id="selectUsuario" name="selectUsuario">';
+			$this->MostrarSelectorRZ('usuario', $usuarioVal);
+			echo '</select>';
+			echo '</div>';
+			echo '<div class="checkbox">';
+			echo '<label>';
+			echo '<input type="hidden" name="checkboxActivo" value="0" />';
+			echo '<input type="checkbox" id="checkboxActivo" name="checkboxActivo" ' . $activoVal . ' value="1"/> Activo';
+			echo '</label>';
+			echo '</div>';
+		}
+
+		function MostrarSelectorRZ($tipo, $valor = '') {
+			$oOBC = new OBC;
+
+			if (strcmp($tipo, "zona") === 0) {
+				$tipo = $oOBC->DBQuote($tipo);
+				$ret = $oOBC->PDODBConnection("CALL pSOCatalogo(". $tipo . ")");
+				foreach ($ret as $row) {
+					if (strcmp($row["Valor"], 'Seleccionar...') === 0) {
+						echo '<option value="" selected>' . $row["Valor"] . '</option>';
+					} elseif (strcmp($row["id"], $valor)) {
+						echo '<option value="' . $row["id"] . '" selected>' . $row["Valor"] . '</option>';
+					} else {
+						echo '<option value="' . $row["id"] . '">' . $row["Valor"] . '</option>';
+					}
+				}
+			} else {
+				$ret = $oOBC->PDODBConnection("CALL pSOUsuario()");
+				foreach ($ret as $row) {
+					if (strcmp($row["responsable"], 'Seleccionar...') === 0) {
+						echo '<option value="" selected>' . $row["responsable"] . '</option>';
+					} elseif (strcmp($row["id_usuario_responsable"], $valor)) {
+						echo '<option value="' . $row["id_usuario_responsable"] . '" selected>' . $row["responsable"] . '</option>';
+					} else {
+						echo '<option value="' . $row["id_usuario_responsable"] . '">' . $row["responsable"] . '</option>';
 					}
 				}
 			}
