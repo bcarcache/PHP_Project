@@ -228,7 +228,8 @@
 		if (strcmp($_POST["fa"], "deptmun") == 0) {
 
 			$oOBC = new OBC;
-			$ret = $oOBC->PDODBConnection("CALL pMunicipioDept(" . $_POST['selected_opt'] . ")");
+			$dbSelOpt = $oOBC->DBQuote($_POST['selected_opt']);
+			$ret = $oOBC->PDODBConnection("CALL pMunicipioDept(" . $dbSelOpt . ")");
 			foreach ($ret as $row) {
 				//echo $row["id"];
 				//echo $row["nombre"];

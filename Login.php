@@ -29,7 +29,7 @@
         <center><h2 class="form-signin-heading">Ingrese sus credenciales</h2></center>
         <input type="text" name="inputUsuario" class="form-control" placeholder="Usuario" required autofocus>
         <input type="password" name="inputPassword" class="form-control" placeholder="Contraseña" required>
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Ingresar"/>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Entrar"/>
       </form>
 
     </div>

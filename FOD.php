@@ -49,7 +49,7 @@
 
 
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="height: 250px; overflow-y: scroll;">
       <table class="table table-hover table-responsive">
         <thead> <tr> 
           <th>ID</th>
@@ -207,38 +207,76 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
             $(document).ready(function() {
-                $('#selectDepartamento').change(function() {
-                    var opt = $(this).val();
-                    $.ajax({
-                        type: "POST",
-                        url: "Classes/OBP.php",
-                        datatype: "html",
-                        data: {
-                          'fa': 'deptmun',
-                          'selected_opt': opt,
-                        },
-                        success:function(data){
-                          $('#selectMunicipio').empty();
-                          var arr = {value: 0, text: 'Seleccionar...'};
-                          $('#selectMunicipio').append($('<option>', arr));
-                          var l1 = data.split("@@");
-                          for (var i = 0; i < l1.length; ++i) {
-                            var l2 = l1[i].split("@");
-                            if (l2[0] && l2[1]) {
-                              var narr = {value: l2[0], text: l2[1]};
-                              $('#selectMunicipio').append($('<option>', narr));
-                            }
-                          }
-                          $("#selectMunicipio").removeAttr('disabled');
-                        }
-                    });
+              var opt = $('#selectDepartamento').val();
+              if (opt) {
+                deptChange();
+              }
 
-                    if (!opt) {
-                      //alert('no opt');
-                      //$("#selectMunicipio").prop('disabled', true);
+              $('#selectDepartamento').change(function() {
+                  var opt = $(this).val();
+                  $.ajax({
+                      type: "POST",
+                      url: "Classes/OBP.php",
+                      datatype: "html",
+                      data: {
+                        'fa': 'deptmun',
+                        'selected_opt': opt,
+                      },
+                      success:function(data){
+                        $('#selectMunicipio').empty();
+                        var arr = {value: 0, text: 'Seleccionar...'};
+                        $('#selectMunicipio').append($('<option>', arr));
+                        var l1 = data.split("@@");
+                        for (var i = 0; i < l1.length; ++i) {
+                          var l2 = l1[i].split("@");
+                          if (l2[1]) {
+                            var narr = {value: l2[1], text: l2[1]};
+                            $('#selectMunicipio').append($('<option>', narr));
+                          }
+                        }
+                        $("#selectMunicipio").removeAttr('disabled');
+                      }
+                  });
+
+                  if (!opt) {
+                    //alert('no opt');
+                    //$("#selectMunicipio").prop('disabled', true);
+                  }
+              });
+
+              function deptChange() {
+                var opt = $('#selectDepartamento').val();
+                var munOpt = $('#municipioVal').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "Classes/OBP.php",
+                    datatype: "html",
+                    data: {
+                      'fa': 'deptmun',
+                      'selected_opt': opt,
+                    },
+                    success:function(data){
+                      $('#selectMunicipio').empty();
+                      var arr = {value: 0, text: 'Seleccionar...'};
+                      $('#selectMunicipio').append($('<option>', arr));
+                      var l1 = data.split("@@");
+                      for (var i = 0; i < l1.length; ++i) {
+                        var l2 = l1[i].split("@");
+                        if (l2[1]) {
+                          var narr = {value: l2[1], text: l2[1]};
+                          if (l2[1] == munOpt) {
+                            $('#selectMunicipio').append('<option value="'+l2[1]+'" selected>'+l2[1]+'</option>');
+                          } else {
+                            $('#selectMunicipio').append($('<option>', narr)); 
+                          }
+                        }
+                      }
+                      $("#selectMunicipio").removeAttr('disabled');
                     }
                 });
-            });
+              }
+          });
         </script>
     <script src="./bootstrap/js/vendor/popper.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>

@@ -103,9 +103,9 @@
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       function limpiarForm() {
-        document.getElementById("idCat").value = '';
+        document.getElementById("idEZ").value = '';
         document.getElementById("selectZona").value = '';
-        document.getElementById("selectUsuario").value = null;
+        document.getElementById("selectUsuario").value = '';
         document.getElementById("checkboxActivo").checked = false;
       }
     </script>
